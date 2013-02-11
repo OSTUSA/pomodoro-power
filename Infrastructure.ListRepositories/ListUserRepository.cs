@@ -14,10 +14,17 @@ namespace Infrastructure.ListRepositories
         /// </summary>
         protected static List<User> Users { get; set; }
 
+        /// <summary>
+        /// The internal Id tracker
+        /// </summary>
         private static long _id;
 
         private readonly object _listLock = new object();
 
+        /// <summary>
+        /// Set the internal list to a new list
+        /// and start the Id tracker at 0
+        /// </summary>
         static ListUserRepository()
         {
             Users = new List<User>();
