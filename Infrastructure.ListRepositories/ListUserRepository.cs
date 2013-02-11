@@ -14,11 +14,14 @@ namespace Infrastructure.ListRepositories
         /// </summary>
         protected static List<User> Users { get; set; }
 
-        private readonly object listLock = new object();
+        private static long _id;
 
-        public ListUserRepository(List<User> users)
+        private readonly object _listLock = new object();
+
+        static ListUserRepository()
         {
-            Users = users;
+            Users = new List<User>();
+            _id = 0;
         }
 
         /// <summary>
@@ -40,11 +43,31 @@ namespace Infrastructure.ListRepositories
         {
             var fetched = Get(user.Id);
             if (fetched == null)
+                Insert(user);
+        }
+
+        /// <summary>
+        /// Reset the internal list
+        /// </summary>
+        public void Clear()
+        {
+            lock (_listLock)
             {
-                lock (listLock)
-                {
-                    Users.Add(user);
-                }
+                Users = new List<User>();
+                _id = 0;
+            }
+        }
+
+        /// <summary>
+        /// Insert a new user
+        /// </summary>
+        /// <param name="user">The user to insert</param>
+        protected void Insert(User user)
+        {
+            lock (_listLock)
+            {
+                user.Id = ++_id;
+                Users.Add(user);
             }
         }
     }

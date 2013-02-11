@@ -10,10 +10,10 @@ namespace Test.Unit.Infrastructure.ListRepositories
     {
         protected List<User> Users { get; set; }
 
-        protected IUserRepository Repo { get; set; }
+        protected ListUserRepository Repo { get; set; }
 
         [SetUp]
-        public void init()
+        public void Init()
         {
             Users = new List<User>()
                 {
@@ -21,7 +21,15 @@ namespace Test.Unit.Infrastructure.ListRepositories
                     new User() {Id = 2, Email = "bscaturro@gmail.com", Name = "Scaturro Brian", Password = "password"},
                     new User() {Id = 3, Email = "myotheremail@gmail.com", Name = "Bill User", Password = "password"}
                 };
-            Repo = new ListUserRepository(Users);
+            Repo = new ListUserRepository();
+            foreach(var user in Users)
+                Repo.Store(user);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            Repo.Clear();
         }
 
         [Test]
@@ -43,7 +51,7 @@ namespace Test.Unit.Infrastructure.ListRepositories
         {
             var user = new User() {Id = 4, Email = "myemail@email.com", Name = "Sam User", Password = "mypassword"};
             Repo.Store(user);
-            Assert.AreSame(user, Users[3]);
+            Assert.AreSame(user, Repo.Get(4));
         }
 
         [Test]
@@ -52,8 +60,16 @@ namespace Test.Unit.Infrastructure.ListRepositories
             var user = Repo.Get(1);
             user.Name = "An Updated Name";
             Repo.Store(user);
-            Assert.AreEqual(3, Users.Count);
-            Assert.AreEqual("An Updated Name", Users[0].Name);
+            Assert.AreEqual("An Updated Name", Repo.Get(1).Name);
+        }
+
+        [Test]
+        public void Store_should_increment_id_if_it_does_not_exist()
+        {
+            var user = new User() {Email = "sam@email.com", Name = "Sam Guy", Password = "mypass"};
+            Repo.Store(user);
+            var fetched = Repo.Get(4);
+            Assert.AreEqual("sam@email.com", fetched.Email);
         }
     }
 }
