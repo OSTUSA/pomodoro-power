@@ -71,5 +71,19 @@ namespace Test.Unit.Infrastructure.ListRepositories
             var fetched = Repo.Get(4);
             Assert.AreEqual("sam@email.com", fetched.Email);
         }
+
+        [Test]
+        public void GetByEmail_should_return_a_single_user_by_email()
+        {
+            var user = Repo.GetByEmail("bscaturro@gmail.com");
+            Assert.AreSame(Users[1], user);
+        }
+
+        [Test]
+        public void GetByEmail_should_return_null_if_email_does_not_exist()
+        {
+            var user = Repo.GetByEmail("supergnarly@gmail.com");
+            Assert.IsNull(user);
+        }
     }
 }

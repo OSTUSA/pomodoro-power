@@ -35,6 +35,16 @@ namespace Infrastructure.ListRepositories
         }
 
         /// <summary>
+        /// Fetch a single user by the unique email address
+        /// </summary>
+        /// <param name="email">A valid email address</param>
+        /// <returns>A User object</returns>
+        public User GetByEmail(string email)
+        {
+            return Users.SingleOrDefault(x => x.Email == email);
+        }
+
+        /// <summary>
         /// Persist a User. If an ID is present it will update,
         /// if not it will insert
         /// </summary>
