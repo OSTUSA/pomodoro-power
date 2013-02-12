@@ -19,7 +19,9 @@ namespace Presentation.Web
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/base.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/base.css",
+                "~/Content/modules/register.css"));
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
                         "~/Content/bootstrap/css/bootstrap.css",
