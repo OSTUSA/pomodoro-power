@@ -23,7 +23,7 @@ namespace Presentation.Web
                 "~/Content/base.css",
                 "~/Content/modules/register.css"));
 
-            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
+            bundles.Add(new StyleBundle("~/Content/boot").Include(
                         "~/Content/bootstrap/css/bootstrap.css",
                         "~/Content/bootstrap/css/bootstrap-responsive.css"
                 ));
