@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 using Core.Domain.Model.Users;
 using Moq;
 using NUnit.Framework;
@@ -14,11 +16,20 @@ namespace Test.Unit.Presentation.Web.Controllers
 
         protected Mock<IUserRepository> Repo { get; set; }
 
+        protected Mock<HttpContextBase> Context { get; set; }
+
+        protected Mock<HttpResponseBase> Response { get; set; }
+
         [SetUp]
         public void Init()
         {
             Repo = new Mock<IUserRepository>();
             Controller = new UserController(Repo.Object);
+            Context = new Mock<HttpContextBase>(MockBehavior.Strict);
+            Response = new Mock<HttpResponseBase>();
+            Response.SetupGet(x => x.Cookies).Returns(new HttpCookieCollection());
+            Context.SetupGet(x => x.Response).Returns(Response.Object);
+            Controller.ControllerContext = new ControllerContext(Context.Object, new RouteData(), Controller);
         }
 
         [Test]

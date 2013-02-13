@@ -186,6 +186,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Input\RegisterInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Validation\UniqueEmailAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

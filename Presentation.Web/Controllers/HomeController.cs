@@ -10,6 +10,8 @@ namespace Presentation.Web.Controllers
     {
         public ActionResult Index()
         {
+            var user = User;
+
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
 
             return View();
