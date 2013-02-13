@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,11 +11,8 @@ namespace Presentation.Web.Controllers
     {
         public ActionResult Index()
         {
-            var user = User;
-
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            return View();
+            var config = ConfigurationManager.AppSettings["TestKey"];
+            return Content(config.ToString());
         }
 
         public ActionResult About()
