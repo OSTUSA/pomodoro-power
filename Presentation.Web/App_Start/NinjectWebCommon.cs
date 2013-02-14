@@ -1,14 +1,4 @@
-using Core.Domain.Model.Users;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
-using Infrastructure.IoC;
-using Infrastructure.ListRepositories;
-using Infrastructure.NHibernate;
-using Infrastructure.NHibernate.Mapping.Users;
-using Infrastructure.NHibernate.Repositories;
-using NHibernate;
-using NHibernate.Cfg;
-using NHibernate.Context;
+using Infrastructure.IoC.NHibernate;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(Presentation.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(Presentation.Web.App_Start.NinjectWebCommon), "Stop")]

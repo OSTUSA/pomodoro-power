@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace Infrastructure.NHibernate.Repositories
 {
+    [Factory("MainFactory")]
     public class UserRepository : IUserRepository
     {
         protected ISession Session;

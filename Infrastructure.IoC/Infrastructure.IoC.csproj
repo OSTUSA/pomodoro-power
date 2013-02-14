@@ -53,7 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NHibernateModule.cs" />
+    <Compile Include="NHibernate\InvalidFactoryException.cs" />
+    <Compile Include="NHibernate\NHibernateModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
