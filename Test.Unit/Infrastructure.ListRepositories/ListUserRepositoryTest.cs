@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core.Domain.Model.Users;
 using Infrastructure.ListRepositories;
+using Infrastructure.ListRepositories.Proxy.Users;
 using NUnit.Framework;
 
 namespace Test.Unit.Infrastructure.ListRepositories
@@ -17,10 +17,12 @@ namespace Test.Unit.Infrastructure.ListRepositories
         {
             Users = new List<User>()
                 {
-                    new User() {Id = 1, Email = "scaturrob@gmail.com", Name = "Brian Scaturro", Password = "password"},
-                    new User() {Id = 2, Email = "bscaturro@gmail.com", Name = "Scaturro Brian", Password = "password"},
-                    new User() {Id = 3, Email = "myotheremail@gmail.com", Name = "Bill User", Password = "password"}
+                    new User() {Email = "scaturrob@gmail.com", Name = "Brian Scaturro", Password = "password"},
+                    new User() {Email = "bscaturro@gmail.com", Name = "Scaturro Brian", Password = "password"},
+                    new User() {Email = "myotheremail@gmail.com", Name = "Bill User", Password = "password"}
                 };
+            for (int i = 1; i < Users.Count + 1; i++ )
+                Users[i - 1].SetId(i);
             Repo = new ListUserRepository();
             foreach(var user in Users)
                 Repo.Store(user);
@@ -49,7 +51,8 @@ namespace Test.Unit.Infrastructure.ListRepositories
         [Test]
         public void Store_should_add_new_User_to_internal_list()
         {
-            var user = new User() {Id = 4, Email = "myemail@email.com", Name = "Sam User", Password = "mypassword"};
+            var user = new User() {Email = "myemail@email.com", Name = "Sam User", Password = "mypassword"};
+            user.SetId(4);
             Repo.Store(user);
             Assert.AreSame(user, Repo.Get(4));
         }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
-using Core.Domain.Model.Users;
 using System.Linq;
+using Core.Domain.Model;
+using Core.Domain.Model.Users;
+using User = Infrastructure.ListRepositories.Proxy.Users.User;
 
 namespace Infrastructure.ListRepositories
 {
@@ -21,17 +23,17 @@ namespace Infrastructure.ListRepositories
             _id = 0;
         }
 
-        public User Get(long id)
+        public Core.Domain.Model.Users.User Get(long id)
         {
             return Users.SingleOrDefault(x => x.Id == id);
         }
 
-        public User GetByEmail(string email)
+        public Core.Domain.Model.Users.User GetByEmail(string email)
         {
             return Users.SingleOrDefault(x => x.Email == email);
         }
 
-        public void Store(User user)
+        public void Store(Core.Domain.Model.Users.User user)
         {
             var fetched = Get(user.Id);
             if (fetched == null)
@@ -47,12 +49,13 @@ namespace Infrastructure.ListRepositories
             }
         }
 
-        protected void Insert(User user)
+        protected void Insert(Core.Domain.Model.Users.User user)
         {
             lock (_listLock)
             {
-                user.Id = ++_id;
-                Users.Add(user);
+                var cast = user as User;
+                cast.SetId(++_id);
+                Users.Add(cast);
             }
         }
     }

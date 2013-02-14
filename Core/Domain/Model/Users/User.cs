@@ -5,17 +5,15 @@ namespace Core.Domain.Model.Users
     /// <summary>
     /// Represents a Pomodoro user
     /// </summary>
-    public class User
+    public class User : EntityBase<User>
     {
-        public long Id { get; set; }
+        public virtual string Email { get; set; }
 
-        public string Email { get; set; }
+        public virtual string Name { get; set; }
 
-        public string Name { get; set; }
+        public virtual string Password { get; set; }
 
-        public string Password { get; set; }
-
-        public void HashPassword()
+        public virtual void HashPassword()
         {
             var salt = BCryptHelper.GenerateSalt(10);
             Password = BCryptHelper.HashPassword(Password, salt);

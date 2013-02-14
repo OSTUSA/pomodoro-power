@@ -35,8 +35,17 @@
     <Reference Include="DevOne.Security.Cryptography.BCrypt">
       <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
     </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.3.3.2.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
@@ -55,6 +64,8 @@
   <ItemGroup>
     <Compile Include="Core\Domain\Model\Users\UserTest.cs" />
     <Compile Include="Infrastructure.ListRepositories\ListUserRepositoryTest.cs" />
+    <Compile Include="Infrastructure.NHibernate\SessionFactoryBuilderTest.cs" />
+    <Compile Include="Infrastructure.NHibernate\SingletonInstanceScoperTest.cs" />
     <Compile Include="Presentation.Web\Controllers\UserControllerTest.cs" />
     <Compile Include="Presentation.Web\Services\AuthenticationServiceTest.cs" />
     <Compile Include="Presentation.Web\Validation\UniqueEmailAttributeTest.cs" />
@@ -72,6 +83,10 @@
     <ProjectReference Include="..\Infrastructure.ListRepositories\Infrastructure.ListRepositories.csproj">
       <Project>{7e17d97c-c3ff-41d3-8271-b3173bcc9813}</Project>
       <Name>Infrastructure.ListRepositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj">
+      <Project>{00EBC56F-9CF9-4E66-8B9C-69274C75EAF2}</Project>
+      <Name>Infrastructure.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\Presentation.Web\Presentation.Web.csproj">
       <Project>{9E8194B8-DD6B-49C8-8742-63065C58621F}</Project>
