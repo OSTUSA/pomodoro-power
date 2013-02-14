@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.NHibernate",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration", "Test.Integration\Test.Integration.csproj", "{49935250-AB58-4F58-98C9-D87A476D23B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.IoC", "Infrastructure.IoC\Infrastructure.IoC.csproj", "{FD2016FF-4272-484A-9BFD-53E23DC6D5E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{49935250-AB58-4F58-98C9-D87A476D23B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49935250-AB58-4F58-98C9-D87A476D23B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49935250-AB58-4F58-98C9-D87A476D23B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD2016FF-4272-484A-9BFD-53E23DC6D5E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD2016FF-4272-484A-9BFD-53E23DC6D5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD2016FF-4272-484A-9BFD-53E23DC6D5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD2016FF-4272-484A-9BFD-53E23DC6D5E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

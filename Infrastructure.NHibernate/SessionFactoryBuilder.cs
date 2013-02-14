@@ -11,5 +11,10 @@ namespace Infrastructure.NHibernate
         {
             return _factorySingleton.GetScopedInstance(key, builder);
         }
+
+        public ISessionFactory GetFactory(string key)
+        {
+            return (ISessionFactory) _factorySingleton.GetDictionary()[key];
+        }
     }
 }

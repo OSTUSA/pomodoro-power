@@ -1,5 +1,14 @@
 using Core.Domain.Model.Users;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using Infrastructure.IoC;
 using Infrastructure.ListRepositories;
+using Infrastructure.NHibernate;
+using Infrastructure.NHibernate.Mapping.Users;
+using Infrastructure.NHibernate.Repositories;
+using NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Context;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(Presentation.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(Presentation.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -56,7 +65,7 @@ namespace Presentation.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IUserRepository>().To<ListUserRepository>();
+            kernel.Load(new NHibernateModule());
         }        
     }
 }

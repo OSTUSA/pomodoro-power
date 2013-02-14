@@ -41,7 +41,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NHibernate">
+      <HintPath>..\Test.Unit\bin\Debug\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -266,9 +272,17 @@
       <Project>{727841E0-A565-4040-8EFA-796ACD25A9D4}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.IoC\Infrastructure.IoC.csproj">
+      <Project>{FD2016FF-4272-484A-9BFD-53E23DC6D5E5}</Project>
+      <Name>Infrastructure.IoC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.ListRepositories\Infrastructure.ListRepositories.csproj">
       <Project>{7E17D97C-C3FF-41D3-8271-B3173BCC9813}</Project>
       <Name>Infrastructure.ListRepositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj">
+      <Project>{00EBC56F-9CF9-4E66-8B9C-69274C75EAF2}</Project>
+      <Name>Infrastructure.NHibernate</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
