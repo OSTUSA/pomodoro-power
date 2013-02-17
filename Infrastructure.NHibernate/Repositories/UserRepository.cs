@@ -26,7 +26,8 @@ namespace Infrastructure.NHibernate.Repositories
 
         public User Get(long id)
         {
-            throw new System.NotImplementedException();
+            var user = Session.Get<User>(id);
+            return user;
         }
 
         public User GetByEmail(string email)

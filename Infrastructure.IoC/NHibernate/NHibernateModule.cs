@@ -18,18 +18,22 @@ namespace Infrastructure.IoC.NHibernate
 {
     public class NHibernateModule : NinjectModule
     {
+        public static Func<ISessionFactory> DefaultFactory = ConfigureDefaultFactory;
+
+        public Dictionary<string, ISessionFactory> Factories { get; private set; }
+
         protected SessionFactoryBuilder Builder = new SessionFactoryBuilder();
 
-        public Dictionary<string, ISessionFactory> Factories;
-
-        public NHibernateModule()
+        public NHibernateModule(Dictionary<string, ISessionFactory> factories)
         {
             Builder = new SessionFactoryBuilder();
-            Factories = new Dictionary<string, ISessionFactory>()
-                {
-                    {"MainFactory", Builder.GetFactory("MainFactory", ConfigureDefaultConnection)},
-                    {"OtherFactory", Builder.GetFactory("OtherFactory", ConfigureDefaultConnection)}
-                };
+            Factories = factories;
+            Factories["Default"] = DefaultFactory.Invoke();
+        }
+
+        public NHibernateModule() : this(new Dictionary<string, ISessionFactory>())
+        {
+            
         }
 
         public override void Load()
@@ -38,7 +42,7 @@ namespace Infrastructure.IoC.NHibernate
             Bind<IUserRepository>().To<UserRepository>();
         }
 
-        protected static ISessionFactory ConfigureDefaultConnection()
+        protected static ISessionFactory ConfigureDefaultFactory()
         {
             return Fluently.Configure()
                     .Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("DefaultConnection")))
@@ -52,7 +56,7 @@ namespace Infrastructure.IoC.NHibernate
             Type requestType = context.Request.Target.Member.ReflectedType;
             var attrs = requestType.GetCustomAttributes(true);
             var factoryAttr = attrs.FirstOrDefault(a => a.GetType() == typeof(Factory)) as Factory ?? null;
-            var factory = factoryAttr.FactoryName;
+            var factory = (factoryAttr == null) ? "Default" : factoryAttr.FactoryName;
 
             if(!Factories.ContainsKey(factory))
                 throw new InvalidFactoryException(string.Format("Invalid factory \"{0}\" provided", factory));

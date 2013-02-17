@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factory.cs" />
+    <Compile Include="FactoryAttribute.cs" />
     <Compile Include="Mapping\Users\UserMap.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="SessionFactoryBuilder.cs" />

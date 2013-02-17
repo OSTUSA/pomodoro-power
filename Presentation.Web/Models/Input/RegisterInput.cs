@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Core.Domain.Services;
+using Presentation.Web.Validation;
 
 namespace Presentation.Web.Models.Input
 {

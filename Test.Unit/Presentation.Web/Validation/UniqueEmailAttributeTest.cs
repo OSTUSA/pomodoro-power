@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using Core.Domain.Model.Users;
-using Core.Domain.Services;
 using Moq;
 using NUnit.Framework;
+using Presentation.Web.Validation;
 
-namespace Test.Unit.Core.Domain.Services
+namespace Test.Unit.Presentation.Web.Validation
 {
     [TestFixture]
     public class UniqueEmailAttributeTest

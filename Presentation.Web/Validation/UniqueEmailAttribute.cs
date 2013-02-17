@@ -2,7 +2,7 @@
 using Core.Domain.Model.Users;
 using Ninject;
 
-namespace Core.Domain.Services
+namespace Presentation.Web.Validation
 {
     public class UniqueEmailAttribute : ValidationAttribute
     {
