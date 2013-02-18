@@ -6,25 +6,25 @@ using Moq;
 using NUnit.Framework;
 using Presentation.Web.Controllers;
 using Presentation.Web.Models.Input;
+using Presentation.Web.Services;
 
 namespace Test.Unit.Presentation.Web.Controllers
 {
     [TestFixture]
     public class UserControllerTest
     {
-        protected UserController Controller { get; set; }
-
-        protected Mock<IUserRepository> Repo { get; set; }
-
-        protected Mock<HttpContextBase> Context { get; set; }
-
-        protected Mock<HttpResponseBase> Response { get; set; }
+        protected UserController Controller;
+        protected Mock<IAuthenticationService> Auth;
+        protected Mock<IUserRepository> Repo;
+        protected Mock<HttpContextBase> Context;
+        protected Mock<HttpResponseBase> Response;
 
         [SetUp]
         public void Init()
         {
             Repo = new Mock<IUserRepository>();
-            Controller = new UserController(Repo.Object);
+            Auth = new Mock<IAuthenticationService>();
+            Controller = new UserController(Repo.Object, Auth.Object);
             Context = new Mock<HttpContextBase>(MockBehavior.Strict);
             Response = new Mock<HttpResponseBase>();
             Response.SetupGet(x => x.Cookies).Returns(new HttpCookieCollection());
@@ -66,6 +66,14 @@ namespace Test.Unit.Presentation.Web.Controllers
             var input = new RegisterInput() {Email = "m@e.com", Password = "p", Name = "n"};
             Controller.Register(input);
             Repo.Verify(x => x.Store(It.IsAny<User>()));
+        }
+
+        [Test]
+        public void LogOut_should_call_signout_of_AuthenticationService_and_return_RedirectToActionResult()
+        {
+            var result = Controller.LogOut();
+            Auth.Verify(a => a.SignOut());
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
         }
     }
 }

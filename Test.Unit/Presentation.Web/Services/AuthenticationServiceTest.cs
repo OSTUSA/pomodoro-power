@@ -9,22 +9,16 @@ namespace Test.Unit.Presentation.Web.Services
     [TestFixture]
     public class AuthenticationServiceTest
     {
-        protected User User { get; set; }
+        protected User User;
 
-        protected AuthenticationService Service { get; set; }
+        protected AuthenticationService Service;
 
         [SetUp]
         public void Init()
         {
             User = new User() { Email = "e@a.com", Name = "Brian", Password = "password" };
 
-            Service = new AuthenticationService(User);
-        }
-
-        [Test]
-        public void Constructor_should_set_user()
-        {
-            Assert.AreSame(User, Service.User);
+            Service = new AuthenticationService();
         }
 
         [Test]
@@ -33,7 +27,7 @@ namespace Test.Unit.Presentation.Web.Services
             var response = new Mock<HttpResponseBase>();
             var collection = new HttpCookieCollection();
             response.SetupGet(x => x.Cookies).Returns(collection);
-            Service.Authenticate(response.Object);
+            Service.Authenticate(User, response.Object);
             Assert.AreEqual(1, collection.Count);
         }
     }

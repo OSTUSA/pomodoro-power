@@ -12,11 +12,13 @@ namespace Presentation.Web.Controllers
 {
     public class UserController : Controller
     {
-        protected IUserRepository Users { get; set; }
+        protected IUserRepository Users;
+        protected IAuthenticationService Auth;
 
-        public UserController(IUserRepository users)
+        public UserController(IUserRepository users, IAuthenticationService auth)
         {
             Users = users;
+            Auth = auth;
         }
 
         [AllowAnonymous]
@@ -36,9 +38,20 @@ namespace Presentation.Web.Controllers
 
             Users.Store(user);
 
-            new Services.AuthenticationService(user).Authenticate(ControllerContext.HttpContext.Response);
+            Auth.Authenticate(user, ControllerContext.HttpContext.Response);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult LogIn()
+        {
+            return View();
+        }
+
+        public RedirectToRouteResult LogOut()
+        {
+            Auth.SignOut();
+            return RedirectToAction("LogIn");
         }
     }
 }
