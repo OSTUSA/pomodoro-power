@@ -43,11 +43,13 @@ namespace Presentation.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         public ActionResult LogIn()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public RedirectToRouteResult LogOut()
         {
             Auth.SignOut();

@@ -1,4 +1,5 @@
 using Infrastructure.IoC.NHibernate;
+using Presentation.Web.Services;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(Presentation.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(Presentation.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -56,6 +57,7 @@ namespace Presentation.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Load(new NHibernateModule());
+            kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
         }        
     }
 }
