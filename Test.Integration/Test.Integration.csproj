@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseTestState.cs" />
     <Compile Include="Infrastructure.NHibernate\Repositories\RepositoryTestBase.cs" />
     <Compile Include="Infrastructure.NHibernate\Repositories\UserRepositoryTest\Mother.cs" />
     <Compile Include="Infrastructure.NHibernate\Repositories\UserRepositoryTest\UserRepositoryTest.cs" />
@@ -68,8 +69,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y "$(SolutionDir)Test.Integration\App.config" "$(SolutionDir)Test.UI.Web.Features\"
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

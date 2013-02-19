@@ -1,7 +1,9 @@
-﻿using NUnit.Framework;
+﻿using Infrastructure.NHibernate.Mapping.Users;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using TechTalk.SpecFlow;
+using Test.Integration;
 
 namespace Test.UI.Web.Features.Contexts
 {
@@ -14,13 +16,17 @@ namespace Test.UI.Web.Features.Contexts
         [BeforeScenario()]
         public void InitScenario()
         {
+            new DatabaseTestState("TestConnection", "pom-schema.sql").Configure<UserMap>();
             Driver = new FirefoxDriver();
-            BaseUrl = "http://localhost:50522/";
+            BaseUrl = "http://localhost:50522";
         }
 
         [AfterScenario()]
         public void TearDownScenario()
         {
+            var authCookie = Driver.Manage().Cookies.GetCookieNamed(".ASPXAUTH");
+            if(authCookie != null)
+                Driver.Manage().Cookies.DeleteCookie(authCookie);
             Driver.Quit();
         }
 
@@ -58,7 +64,7 @@ namespace Test.UI.Web.Features.Contexts
         [Then(@"I should be redirected to the home screen")]
         public void ThenIShouldBeRedirectedToTheHomeScreen()
         {
-            Assert.AreEqual(BaseUrl, Driver.Url);
+            Assert.AreEqual(BaseUrl + '/', Driver.Url);
         }
 
     }

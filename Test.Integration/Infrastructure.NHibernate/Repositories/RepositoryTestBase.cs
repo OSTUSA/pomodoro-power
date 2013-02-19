@@ -12,23 +12,12 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories
 {
     public class RepositoryTestBase
     {
-        protected readonly SessionFactoryBuilder Builder = new SessionFactoryBuilder();
-
-        protected static ISessionFactory BuildTestFactory()
+        protected DatabaseTestState TestState
         {
-            return Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("TestConnection")))
-                .Mappings(cfg => cfg.FluentMappings.AddFromAssemblyOf<UserMap>())
-                .ExposeConfiguration(CreateSchema)
-                .BuildConfiguration()
-                .CurrentSessionContext<ThreadStaticSessionContext>().BuildSessionFactory();
-        }
-
-        protected static void CreateSchema(Configuration config)
-        {
-            var schemaExport = new SchemaExport(config);
-            schemaExport.Drop(false, true);
-            schemaExport.SetOutputFile("pom-schema.sql").Create(false, true);
+            get
+            {
+                return new DatabaseTestState("TestConnection", "pom-schema.sql");
+            }
         }
     }
 }

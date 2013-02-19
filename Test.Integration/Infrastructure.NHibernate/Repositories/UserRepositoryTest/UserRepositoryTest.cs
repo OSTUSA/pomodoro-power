@@ -1,7 +1,7 @@
 ﻿using Core.Domain.Model.Users;
+using Infrastructure.NHibernate.Mapping.Users;
 using Infrastructure.NHibernate.Repositories;
 using NHibernate;
-using NHibernate.Proxy;
 using NUnit.Framework;
 
 namespace Test.Integration.Infrastructure.NHibernate.Repositories.UserRepositoryTest
@@ -16,7 +16,7 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.UserRepository
         [SetUp]
         public void Init()
         {
-            Session = Builder.GetFactory("testFactory", BuildTestFactory).OpenSession();
+            Session = TestState.Configure<UserMap>().OpenSession();
             Session.FlushMode = FlushMode.Commit;
             Repo = new UserRepository(Session);
         }
