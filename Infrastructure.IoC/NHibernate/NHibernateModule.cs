@@ -55,8 +55,8 @@ namespace Infrastructure.IoC.NHibernate
         {
             Type requestType = context.Request.Target.Member.ReflectedType;
             var attrs = requestType.GetCustomAttributes(true);
-            var factoryAttr = attrs.FirstOrDefault(a => a.GetType() == typeof(Factory)) as Factory ?? null;
-            var factory = (factoryAttr == null) ? "Default" : factoryAttr.FactoryName;
+            var factoryAttr = attrs.FirstOrDefault(a => a.GetType() == typeof(SessionFactory)) as SessionFactory ?? null;
+            var factory = (factoryAttr == null) ? "Default" : factoryAttr.SessionFactoryName;
 
             if(!Factories.ContainsKey(factory))
                 throw new InvalidFactoryException(string.Format("Invalid factory \"{0}\" provided", factory));

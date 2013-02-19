@@ -72,7 +72,7 @@
     <Compile Include="Infrastructure.IoC\NHibernate\ClassWithNoAttribute.cs" />
     <Compile Include="Infrastructure.IoC\NHibernate\NHibernateModuleTest.cs" />
     <Compile Include="Infrastructure.ListRepositories\ListUserRepositoryTest.cs" />
-    <Compile Include="Infrastructure.NHibernate\FactoryAttributeTest.cs" />
+    <Compile Include="Infrastructure.NHibernate\SessionFactoryAttributeTest.cs" />
     <Compile Include="Infrastructure.NHibernate\SessionFactoryBuilderTest.cs" />
     <Compile Include="Infrastructure.NHibernate\SingletonInstanceScoperTest.cs" />
     <Compile Include="Presentation.Web\Controllers\UserControllerTest.cs" />

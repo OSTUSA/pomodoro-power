@@ -2,7 +2,7 @@
 
 namespace Test.Unit.Infrastructure.IoC.NHibernate
 {
-    [Factory("IDontHaveASessionFactoryAtAll")]
+    [SessionFactory("IDontHaveASessionFactoryAtAll")]
     public class ClassWithInvalidAttribute
     {
     }

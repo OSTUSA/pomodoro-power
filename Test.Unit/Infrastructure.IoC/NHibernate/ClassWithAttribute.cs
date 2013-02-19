@@ -2,7 +2,7 @@
 
 namespace Test.Unit.Infrastructure.IoC.NHibernate
 {
-    [Factory("Default")]
+    [SessionFactory("Default")]
     public class ClassWithAttribute
     {
     }
