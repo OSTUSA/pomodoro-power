@@ -22,6 +22,17 @@ namespace Infrastructure.NHibernate
             return (TValue) GetDictionary()[key];
         }
 
+        public void ClearInstance(string key)
+        {
+            lock (GetDictionary().SyncRoot)
+            {
+                if (GetDictionary().Contains(key))
+                {
+                    RemoveInstance(key);
+                }
+            }
+        }
+
         private void BuildInstance(string key, Func<TValue> builder)
         {
             lock (GetDictionary().SyncRoot)
@@ -31,6 +42,11 @@ namespace Infrastructure.NHibernate
                     GetDictionary().Add(key, builder.Invoke());
                 }
             }
+        }
+
+        private void RemoveInstance(string key)
+        {
+            GetDictionary().Remove(key);
         }
     }
 }

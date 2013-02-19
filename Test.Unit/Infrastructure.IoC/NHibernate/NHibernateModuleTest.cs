@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Infrastructure.IoC.NHibernate;
+using Infrastructure.NHibernate;
 using Moq;
 using NHibernate;
 using NUnit.Framework;
@@ -19,6 +21,7 @@ namespace Test.Unit.Infrastructure.IoC.NHibernate
         [SetUp]
         public void Init()
         {
+            NHibernateModule.DefaultFactory = () => new Mock<ISessionFactory>().Object;
             Module = new NHibernateModule();
         }
 
@@ -46,6 +49,8 @@ namespace Test.Unit.Infrastructure.IoC.NHibernate
         [Test]
         public void Overriding_default_factory_function_should_return_provided_factory()
         {
+            ClearDefaultFactory();
+
             var mocked = new Mock<ISessionFactory>().Object;
             NHibernateModule.DefaultFactory = () => mocked;
             var module = new NHibernateModule();
@@ -55,6 +60,7 @@ namespace Test.Unit.Infrastructure.IoC.NHibernate
         [Test]
         public void Test_GetSession_returns_factory_for_attribute()
         {
+            ClearDefaultFactory();
             var context = GetMockContext<ClassWithAttribute>();
             var module = new NHibernateModule();
             var result = InvokeGetSession(module, context);
@@ -108,6 +114,17 @@ namespace Test.Unit.Infrastructure.IoC.NHibernate
             MethodInfo method = typeof(NHibernateModule).GetMethod("GetSession", BindingFlags.NonPublic | BindingFlags.Instance);
             var result = method.Invoke(module, new object[] { context.Object }) as ISession;
             return result;
+        }
+
+        protected void ClearDefaultFactory()
+        {
+            var builder =
+                typeof(NHibernateModule).GetField("Builder", BindingFlags.NonPublic | BindingFlags.Static).GetValue(Module) as
+                SessionFactoryBuilder;
+            var scoper =
+                typeof(SessionFactoryBuilder).GetField("_factorySingleton", BindingFlags.NonPublic | BindingFlags.Instance)
+                                              .GetValue(builder) as SingletonInstanceScoper<ISessionFactory>;
+            scoper.ClearInstance("Default");
         }
     }
 }

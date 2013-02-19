@@ -26,14 +26,21 @@ namespace Test.Unit.Infrastructure.NHibernate
         [Test]
         public void GetScopedInstance_should_accept_builder_func_and_add_result_to_dictionary()
         {
-            Scoper.GetScopedInstance("mystringbuilder", () =>
-                {
-                    return "new string";
-                });
+            Scoper.GetScopedInstance("mystringbuilder", () => "new string");
 
             var dict = Scoper.GetDictionary();
 
             Assert.AreEqual("new string", dict["mystringbuilder"]);
+        }
+
+        [Test]
+        public void ClearInstance_should_clear_by_key()
+        {
+            Scoper.GetScopedInstance("anotherbuilder", () => "another string");
+            var dict = Scoper.GetDictionary();
+            Assert.AreEqual("another string", dict["anotherbuilder"]);
+            Scoper.ClearInstance("anotherbuilder");
+            Assert.False(dict.Contains("anotherbuilder"));
         }
     }
 }

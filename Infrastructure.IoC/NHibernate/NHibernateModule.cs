@@ -22,13 +22,12 @@ namespace Infrastructure.IoC.NHibernate
 
         public Dictionary<string, ISessionFactory> Factories { get; private set; }
 
-        protected SessionFactoryBuilder Builder = new SessionFactoryBuilder();
+        protected static SessionFactoryBuilder Builder = new SessionFactoryBuilder();
 
         public NHibernateModule(Dictionary<string, ISessionFactory> factories)
         {
-            Builder = new SessionFactoryBuilder();
             Factories = factories;
-            Factories["Default"] = DefaultFactory.Invoke();
+            Factories["Default"] = Builder.GetFactory("Default", DefaultFactory);
         }
 
         public NHibernateModule() : this(new Dictionary<string, ISessionFactory>())
