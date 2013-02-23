@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Core.Domain.Model.Users;
@@ -74,6 +75,42 @@ namespace Test.Unit.Presentation.Web.Controllers
             var result = Controller.LogOut();
             Auth.Verify(a => a.SignOut());
             Assert.IsInstanceOf<RedirectToRouteResult>(result);
+        }
+
+        [Test]
+        public void Login_should_return_a_ViewResult()
+        {
+            var result = Controller.LogIn();
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public void Login_with_valid_model_should_call_Authentication_Authenticate_with_authed_User()
+        {
+            var tuple = DoLogin(new LoginInput() {Email = "scaturrob@gmail.com", Password = "pass"});
+            Auth.Verify(a => a.Authenticate(tuple.Item1, Response.Object));
+        }
+
+        [Test]
+        public void Login_with_valid_model_should_return_RedirectToRouteResult()
+        {
+            var tuple = DoLogin(new LoginInput() { Email = "m@e.c"});
+            Assert.IsInstanceOf<RedirectToRouteResult>(tuple.Item2);
+        }
+
+        [Test]
+        public void Login_with_invalid_model_should_return_view_result()
+        {
+            Controller.ModelState.AddModelError("Email", "Invalid email");
+            var result = DoLogin(new LoginInput() {Email = "a@c.c"});
+            Assert.IsInstanceOf<ViewResult>(result.Item2);
+        }
+
+        private Tuple<User, ActionResult> DoLogin(LoginInput input)
+        {
+            var user = new User() { Password = "password"};
+            Repo.Setup(r => r.GetByEmail(input.Email)).Returns(user);
+            return new Tuple<User, ActionResult>(user, Controller.LogIn(input));
         }
     }
 }

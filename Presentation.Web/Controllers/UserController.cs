@@ -49,6 +49,18 @@ namespace Presentation.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult LogIn(LoginInput input)
+        {
+            var user = Users.GetByEmail(input.Email);
+
+            if (!ModelState.IsValid) return View(input);
+
+            Auth.Authenticate(user, HttpContext.Response);
+            return RedirectToAction("Index", "Home");
+        }
+
         [AllowAnonymous]
         public RedirectToRouteResult LogOut()
         {

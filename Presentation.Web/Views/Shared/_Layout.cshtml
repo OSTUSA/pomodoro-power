@@ -21,6 +21,10 @@
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right">
                             <li>@Html.ActionLink("Register", "Register", "User")</li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("Sign Out", "LogOut", "User")</li>
+                            }
                         </ul>
                     </div>
                 </div>
