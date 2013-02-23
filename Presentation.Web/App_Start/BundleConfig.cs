@@ -21,7 +21,7 @@ namespace Presentation.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/base.css",
-                "~/Content/modules/register.css"));
+                "~/Content/modules/userform.css"));
 
             bundles.Add(new StyleBundle("~/Content/boot").Include(
                         "~/Content/bootstrap/css/bootstrap.css",

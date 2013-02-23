@@ -106,13 +106,6 @@ namespace Test.Unit.Presentation.Web.Controllers
             Assert.IsInstanceOf<ViewResult>(result.Item2);
         }
 
-        [Test]
-        public void LogIn_should_set_invalid_model_state_for_Email_if_password_mismatch()
-        {
-            var result = DoLogin(Mother.BadLogin, Mother.ValidUser);
-            Assert.True(Controller.ModelState.ContainsKey("Email"));
-        }
-
         private Tuple<User, ActionResult> DoLogin(LoginInput input, User returnUser)
         {
             Repo.Setup(r => r.GetByEmail(input.Email)).Returns(returnUser);

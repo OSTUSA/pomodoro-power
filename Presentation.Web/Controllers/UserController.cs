@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
+﻿using System.Web.Mvc;
 using Core.Domain.Model.Users;
 using Presentation.Web.Models.Input;
 using Presentation.Web.Services;
@@ -53,11 +48,9 @@ namespace Presentation.Web.Controllers
         [AllowAnonymous]
         public ActionResult LogIn(LoginInput input)
         {
-            var user = Users.GetByEmail(input.Email);
-
-            if(!user.IsAuthenticated(input.Password)) ModelState.AddModelError("Email", "Invalid Email or Password.");
-
             if (!ModelState.IsValid) return View(input);
+
+            var user = Users.GetByEmail(input.Email);
 
             Auth.Authenticate(user, HttpContext.Response);
             return RedirectToAction("Index", "Home");

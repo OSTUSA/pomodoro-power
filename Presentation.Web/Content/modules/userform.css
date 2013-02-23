@@ -1,9 +1,9 @@
-﻿.register {
+﻿.userform {
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.register.register-center {
+.userform.userform-center {
     margin-left:auto;
     margin-right: auto;
     float: none;

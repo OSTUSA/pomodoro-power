@@ -2,20 +2,22 @@
 using Core.Domain.Model.Users;
 using Ninject;
 
-namespace Presentation.Web.Validation
+namespace Presentation.Web.Validation.User
 {
-    public class UniqueEmailAttribute : ValidationAttribute
+    public class UniqueEmailAttribute : UserValidationAttributeBase
     {
         [Inject]
-        public IUserRepository Repo { get; set; }
+        public override IUserRepository Repo { get; set; }
 
-        protected string Message { get; set; }
-
-        public UniqueEmailAttribute(string message = "")
+        public UniqueEmailAttribute(string message = "") : base(message)
         {
-            Message = "This email address is already in use.";
-            if (!string.IsNullOrEmpty(message))
-                Message = message;
+            
+        }
+
+        public UniqueEmailAttribute() : 
+            this("This email address is already in use.")
+        {
+
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -27,8 +29,8 @@ namespace Presentation.Web.Validation
         {
             if (string.IsNullOrEmpty(email)) return null;
 
-            var users = Repo.GetByEmail(email);
-            if (users != null)
+            var user = Repo.GetByEmail(email);
+            if (user != null)
                 return new ValidationResult(Message);
 
             return null;

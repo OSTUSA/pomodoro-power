@@ -78,7 +78,9 @@
     <Compile Include="Presentation.Web\Controllers\Mother.cs" />
     <Compile Include="Presentation.Web\Controllers\UserControllerTest.cs" />
     <Compile Include="Presentation.Web\Services\AuthenticationServiceTest.cs" />
-    <Compile Include="Presentation.Web\Validation\UniqueEmailAttributeTest.cs" />
+    <Compile Include="Presentation.Web\Validation\User\Mother.cs" />
+    <Compile Include="Presentation.Web\Validation\User\ValidLoginAttributeTest.cs" />
+    <Compile Include="Presentation.Web\Validation\User\UniqueEmailAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

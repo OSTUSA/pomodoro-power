@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Presentation.Web.Validation;
+using Presentation.Web.Validation.User;
 
 namespace Presentation.Web.Models.Input
 {
