@@ -18,5 +18,10 @@ namespace Core.Domain.Model.Users
             var salt = BCryptHelper.GenerateSalt(10);
             Password = BCryptHelper.HashPassword(Password, salt);
         }
+
+        public virtual bool IsAuthenticated(string password)
+        {
+            return BCryptHelper.CheckPassword(password, Password);
+        }
     }
 }
