@@ -78,39 +78,45 @@ namespace Test.Unit.Presentation.Web.Controllers
         }
 
         [Test]
-        public void Login_should_return_a_ViewResult()
+        public void LogIn_should_return_a_ViewResult()
         {
             var result = Controller.LogIn();
             Assert.IsInstanceOf<ViewResult>(result);
         }
 
         [Test]
-        public void Login_with_valid_model_should_call_Authentication_Authenticate_with_authed_User()
+        public void LogIn_with_valid_model_should_call_Authentication_Authenticate_with_authed_User()
         {
-            var tuple = DoLogin(new LoginInput() {Email = "scaturrob@gmail.com", Password = "pass"});
+            var tuple = DoLogin(Mother.ValidLogin, Mother.ValidUser);
             Auth.Verify(a => a.Authenticate(tuple.Item1, Response.Object));
         }
 
         [Test]
-        public void Login_with_valid_model_should_return_RedirectToRouteResult()
+        public void LogIn_with_valid_model_should_return_RedirectToRouteResult()
         {
-            var tuple = DoLogin(new LoginInput() { Email = "m@e.c"});
+            var tuple = DoLogin(Mother.ValidLogin, Mother.ValidUser);
             Assert.IsInstanceOf<RedirectToRouteResult>(tuple.Item2);
         }
 
         [Test]
-        public void Login_with_invalid_model_should_return_view_result()
+        public void LogIn_with_invalid_model_should_return_view_result()
         {
             Controller.ModelState.AddModelError("Email", "Invalid email");
-            var result = DoLogin(new LoginInput() {Email = "a@c.c"});
+            var result = DoLogin(Mother.ValidLogin, Mother.ValidUser);
             Assert.IsInstanceOf<ViewResult>(result.Item2);
         }
 
-        private Tuple<User, ActionResult> DoLogin(LoginInput input)
+        [Test]
+        public void LogIn_should_set_invalid_model_state_for_Email_if_password_mismatch()
         {
-            var user = new User() { Password = "password"};
-            Repo.Setup(r => r.GetByEmail(input.Email)).Returns(user);
-            return new Tuple<User, ActionResult>(user, Controller.LogIn(input));
+            var result = DoLogin(Mother.BadLogin, Mother.ValidUser);
+            Assert.True(Controller.ModelState.ContainsKey("Email"));
+        }
+
+        private Tuple<User, ActionResult> DoLogin(LoginInput input, User returnUser)
+        {
+            Repo.Setup(r => r.GetByEmail(input.Email)).Returns(returnUser);
+            return new Tuple<User, ActionResult>(returnUser, Controller.LogIn(input));
         }
     }
 }

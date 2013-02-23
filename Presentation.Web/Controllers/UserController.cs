@@ -55,6 +55,8 @@ namespace Presentation.Web.Controllers
         {
             var user = Users.GetByEmail(input.Email);
 
+            if(!user.IsAuthenticated(input.Password)) ModelState.AddModelError("Email", "Invalid Email or Password.");
+
             if (!ModelState.IsValid) return View(input);
 
             Auth.Authenticate(user, HttpContext.Response);
