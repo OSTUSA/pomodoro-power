@@ -18,7 +18,7 @@ namespace Test.UI.Web.Features.Contexts
     {
         protected IWebDriver Driver;
         protected string BaseUrl;
-        protected IPage Page;
+        protected dynamic Page;
 
         [BeforeScenario()]
         public void InitScenario()
@@ -49,8 +49,7 @@ namespace Test.UI.Web.Features.Contexts
         [When(@"I submit the form using")]
         public void WhenISubmitTheFormUsing(Table table)
         {
-            var page = Page as IFormPage;
-            page.Submit((from row in table.Rows from kvp in row select kvp.Value).ToArray());
+            Page.Submit((from row in table.Rows from kvp in row select kvp.Value).ToArray());
         }
 
         [Then(@"A cookie named ""(.*)"" should exist")]
