@@ -91,6 +91,84 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Registering and omitting the email address")]
+        public virtual void RegisteringAndOmittingTheEmailAddress()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering and omitting the email address", ((string[])(null)));
+#line 13
+this.ScenarioSetup(scenarioInfo);
+#line 14
+ testRunner.Given("I am on page \"User.Register\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Email",
+                        "Name",
+                        "Password"});
+            table2.AddRow(new string[] {
+                        "",
+                        "Brian Scaturro",
+                        "password"});
+#line 15
+ testRunner.When("I submit the form using", ((string)(null)), table2, "When ");
+#line 18
+ testRunner.Then("element \"span[data-valmsg-for=\'Email\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Registering and omitting the name")]
+        public virtual void RegisteringAndOmittingTheName()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering and omitting the name", ((string[])(null)));
+#line 20
+this.ScenarioSetup(scenarioInfo);
+#line 21
+ testRunner.Given("I am on page \"User.Register\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Email",
+                        "Name",
+                        "Password"});
+            table3.AddRow(new string[] {
+                        "scaturrob@gmail.com",
+                        "",
+                        "password"});
+#line 22
+ testRunner.When("I submit the form using", ((string)(null)), table3, "When ");
+#line 25
+ testRunner.Then("element \"span[data-valmsg-for=\'Name\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Registering and omitting the password")]
+        public virtual void RegisteringAndOmittingThePassword()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering and omitting the password", ((string[])(null)));
+#line 27
+this.ScenarioSetup(scenarioInfo);
+#line 28
+ testRunner.Given("I am on page \"User.Register\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Email",
+                        "Name",
+                        "Password"});
+            table4.AddRow(new string[] {
+                        "scaturrob@gmail.com",
+                        "Brian Scaturro",
+                        ""});
+#line 29
+ testRunner.When("I submit the form using", ((string)(null)), table4, "When ");
+#line 32
+ testRunner.Then("element \"span[data-valmsg-for=\'Password\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

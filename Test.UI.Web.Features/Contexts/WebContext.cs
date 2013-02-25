@@ -40,9 +40,9 @@ namespace Test.UI.Web.Features.Contexts
         }
 
         [Given(@"I am on page ""(.*)""")]
-        public void GivenIAmOnPage(string p0)
+        public void GivenIAmOnPage(string relativeType)
         {
-            var typeName = String.Format("Test.UI.Web.Features.Pages.{0}", p0);
+            var typeName = String.Format("Test.UI.Web.Features.Pages.{0}", relativeType);
             var type = Type.GetType(typeName);
             Object[] args = {Driver};
             Page = Activator.CreateInstance(type, args) as IPage;
@@ -57,17 +57,24 @@ namespace Test.UI.Web.Features.Contexts
         }
 
         [Then(@"A cookie named ""(.*)"" should exist")]
-        public void ThenACookieNamedShouldExist(string p0)
+        public void ThenACookieNamedShouldExist(string cookieName)
         {
-            var cookie = Driver.Manage().Cookies.GetCookieNamed(p0);
+            var cookie = Driver.Manage().Cookies.GetCookieNamed(cookieName);
             Assert.IsNotNull(cookie);
         }
 
         [Then(@"I should be redirected to ""(.*)""")]
-        public void ThenIShouldBeRedirectedTo(string p0)
+        public void ThenIShouldBeRedirectedTo(string path)
         {
-            Assert.AreEqual(BaseUrl + p0, Driver.Url);
+            Assert.AreEqual(BaseUrl + path, Driver.Url);
         }
 
+        [Then(@"element ""(.*)"" should have text")]
+        public void ThenElementShouldHaveText(string selector)
+        {
+            var elem = Driver.FindElement(By.CssSelector(selector));
+            Assert.IsNotNull(elem);
+            Assert.IsNotEmpty(elem.Text);
+        }
     }
 }
