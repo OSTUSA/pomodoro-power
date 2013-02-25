@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contexts\UserContext.cs" />
     <Compile Include="Contexts\WebContext.cs" />
     <Compile Include="Pages\IFormPage.cs" />
     <Compile Include="Pages\IPage.cs" />

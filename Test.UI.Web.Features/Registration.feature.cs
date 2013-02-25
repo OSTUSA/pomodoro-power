@@ -169,6 +169,43 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Registering an in use email")]
+        public virtual void RegisteringAnInUseEmail()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering an in use email", ((string[])(null)));
+#line 34
+this.ScenarioSetup(scenarioInfo);
+#line 35
+ testRunner.Given("I am on page \"User.Register\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Email",
+                        "Name",
+                        "Password"});
+            table5.AddRow(new string[] {
+                        "bscaturro@gmail.com",
+                        "Brian Scaturro",
+                        "password"});
+#line 36
+ testRunner.And("I create a user with the following", ((string)(null)), table5, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Email",
+                        "Name",
+                        "Password"});
+            table6.AddRow(new string[] {
+                        "bscaturro@gmail.com",
+                        "Brian Scaturro",
+                        "password"});
+#line 39
+ testRunner.When("I submit the form using", ((string)(null)), table6, "When ");
+#line 42
+ testRunner.Then("element \"span[data-valmsg-for=\'Email\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

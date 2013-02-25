@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Infrastructure.NHibernate.Mapping.Users;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using TechTalk.SpecFlow;
-using Test.Integration;
 using Test.UI.Web.Features.Pages;
 
 namespace Test.UI.Web.Features.Contexts
@@ -25,7 +23,6 @@ namespace Test.UI.Web.Features.Contexts
         [BeforeScenario()]
         public void InitScenario()
         {
-            new DatabaseTestState("TestConnection", "pom-schema.sql").Configure<UserMap>();
             Driver = new FirefoxDriver();
             BaseUrl = "http://localhost:50522";
         }
