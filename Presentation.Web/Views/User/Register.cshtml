@@ -4,6 +4,8 @@
 <div class="row">
     <h1 class="text-center">Pomodoro Power</h1>
     <div class="span7 userform userform-center well">
+        @{ Html.EnableClientValidation(); }
+        @{ Html.EnableClientValidation(); }
         @using (Html.BeginForm("Register", "User", FormMethod.Post, new {@class = "form-horizontal"}))
         {
             @Html.EditorFor(x => x.Email, new { placeholder = "email@address.com" })
