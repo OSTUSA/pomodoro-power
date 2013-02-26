@@ -72,5 +72,34 @@ namespace Test.UI.Web.Features.Contexts
             Assert.IsNotNull(elem);
             Assert.IsNotEmpty(elem.Text);
         }
+
+        [Then(@"element ""(.*)"" should be visible")]
+        public void ThenElementShouldBeVisible(string selector)
+        {
+            var elem = Driver.FindElement(By.CssSelector(selector));
+            Assert.IsNotNull(elem);
+            Assert.True(elem.Displayed);
+        }
+
+        [Then(@"element ""(.*)"" should not exist")]
+        public void ThenElementShouldNotExist(string selector)
+        {
+            Assert.Catch<NoSuchElementException>(() => Driver.FindElement(By.CssSelector(selector)));
+        }
+
+        [Then(@"I click element ""(.*)""")]
+        public void ThenIClickElement(string selector)
+        {
+            var elem = Driver.FindElement(By.CssSelector(selector));
+            elem.Click();
+        }
+
+        [Then(@"there should be no cookie named ""(.*)""")]
+        public void ThenThereShouldBeNoCookieNamed(string cookieName)
+        {
+            var cookie = Driver.Manage().Cookies.GetCookieNamed(cookieName);
+            Assert.IsNull(cookie);
+        }
+
     }
 }
