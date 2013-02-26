@@ -19,20 +19,20 @@ namespace Test.UI.Web.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Registration")]
-    public partial class RegistrationFeature
+    [NUnit.Framework.DescriptionAttribute("Login")]
+    public partial class LoginFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Registration.feature"
+#line 1 "Login.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Registration", "As a user\r\nI can register for a Pomodoro Power account", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Login", "As a user\r\nI can login to my Pomodoro Power account", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -65,143 +65,144 @@ namespace Test.UI.Web.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Registering an unused email address")]
-        public virtual void RegisteringAnUnusedEmailAddress()
+        [NUnit.Framework.DescriptionAttribute("Logging in with a valid user")]
+        public virtual void LoggingInWithAValidUser()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering an unused email address", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging in with a valid user", ((string[])(null)));
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
- testRunner.Given("I am on page \"User.Register\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am on page \"User.Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Email",
                         "Name",
                         "Password"});
             table1.AddRow(new string[] {
-                        "milesscaturro@gmail.com",
-                        "Miles Scaturro",
+                        "scaturrob@gmail.com",
+                        "Brian Scaturro",
                         "password"});
 #line 7
- testRunner.When("I submit the form using", ((string)(null)), table1, "When ");
+ testRunner.And("I create a user with the following", ((string)(null)), table1, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Email",
+                        "Password"});
+            table2.AddRow(new string[] {
+                        "scaturrob@gmail.com",
+                        "password"});
 #line 10
+ testRunner.When("I submit the form using", ((string)(null)), table2, "When ");
+#line 13
  testRunner.Then("A cookie named \".ASPXAUTH\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 11
+#line 14
  testRunner.And("I should be redirected to \"/\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Registering and omitting the email address")]
-        public virtual void RegisteringAndOmittingTheEmailAddress()
+        [NUnit.Framework.DescriptionAttribute("Logging in and omitting the email address")]
+        public virtual void LoggingInAndOmittingTheEmailAddress()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering and omitting the email address", ((string[])(null)));
-#line 13
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging in and omitting the email address", ((string[])(null)));
+#line 16
 this.ScenarioSetup(scenarioInfo);
-#line 14
- testRunner.Given("I am on page \"User.Register\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 17
+ testRunner.Given("I am on page \"User.Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Email",
-                        "Name",
                         "Password"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "",
-                        "Brian Scaturro",
                         "password"});
-#line 15
- testRunner.When("I submit the form using", ((string)(null)), table2, "When ");
 #line 18
+ testRunner.When("I submit the form using", ((string)(null)), table3, "When ");
+#line 21
  testRunner.Then("element \"span[data-valmsg-for=\'Email\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Registering and omitting the name")]
-        public virtual void RegisteringAndOmittingTheName()
+        [NUnit.Framework.DescriptionAttribute("Logging in and omitting the password")]
+        public virtual void LoggingInAndOmittingThePassword()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering and omitting the name", ((string[])(null)));
-#line 20
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging in and omitting the password", ((string[])(null)));
+#line 23
 this.ScenarioSetup(scenarioInfo);
-#line 21
- testRunner.Given("I am on page \"User.Register\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Email",
-                        "Name",
-                        "Password"});
-            table3.AddRow(new string[] {
-                        "scaturrob@gmail.com",
-                        "",
-                        "password"});
-#line 22
- testRunner.When("I submit the form using", ((string)(null)), table3, "When ");
-#line 25
- testRunner.Then("element \"span[data-valmsg-for=\'Name\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Registering and omitting the password")]
-        public virtual void RegisteringAndOmittingThePassword()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering and omitting the password", ((string[])(null)));
-#line 27
-this.ScenarioSetup(scenarioInfo);
-#line 28
- testRunner.Given("I am on page \"User.Register\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 24
+ testRunner.Given("I am on page \"User.Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Email",
-                        "Name",
                         "Password"});
             table4.AddRow(new string[] {
                         "scaturrob@gmail.com",
-                        "Brian Scaturro",
                         ""});
-#line 29
+#line 25
  testRunner.When("I submit the form using", ((string)(null)), table4, "When ");
-#line 32
+#line 28
  testRunner.Then("element \"span[data-valmsg-for=\'Password\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Registering an in use email")]
-        public virtual void RegisteringAnInUseEmail()
+        [NUnit.Framework.DescriptionAttribute("Logging in with an invalid email")]
+        public virtual void LoggingInWithAnInvalidEmail()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Registering an in use email", ((string[])(null)));
-#line 34
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging in with an invalid email", ((string[])(null)));
+#line 30
 this.ScenarioSetup(scenarioInfo);
-#line 35
- testRunner.Given("I am on page \"User.Register\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 31
+ testRunner.Given("I am on page \"User.Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Email",
-                        "Name",
                         "Password"});
             table5.AddRow(new string[] {
-                        "jenniescaturro@gmail.com",
-                        "Jennie Scaturro",
+                        "test@gmail.com",
                         "password"});
-#line 36
- testRunner.And("I create a user with the following", ((string)(null)), table5, "And ");
+#line 32
+ testRunner.When("I submit the form using", ((string)(null)), table5, "When ");
+#line 35
+ testRunner.Then("element \"span[data-valmsg-for=\'Email\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Logging in with an invalid password")]
+        public virtual void LoggingInWithAnInvalidPassword()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging in with an invalid password", ((string[])(null)));
+#line 37
+this.ScenarioSetup(scenarioInfo);
+#line 38
+ testRunner.Given("I am on page \"User.Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Email",
                         "Name",
                         "Password"});
             table6.AddRow(new string[] {
-                        "jenniescaturro@gmail.com",
-                        "Jennie Scaturro",
+                        "bscaturro@gmail.com",
+                        "Brian Scaturro",
                         "password"});
 #line 39
- testRunner.When("I submit the form using", ((string)(null)), table6, "When ");
+ testRunner.And("I create a user with the following", ((string)(null)), table6, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Email",
+                        "Password"});
+            table7.AddRow(new string[] {
+                        "bscaturro@gmail.com",
+                        "badpassword"});
 #line 42
+ testRunner.When("I submit the form using", ((string)(null)), table7, "When ");
+#line 45
  testRunner.Then("element \"span[data-valmsg-for=\'Email\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

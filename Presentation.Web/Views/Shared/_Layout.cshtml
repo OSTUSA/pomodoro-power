@@ -20,6 +20,7 @@
                     <a href="/" class="brand">Pomodoro</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right">
+                            <li>@Html.ActionLink("Login", "LogIn", "User")</li>
                             <li>@Html.ActionLink("Register", "Register", "User")</li>
                             @if (User.Identity.IsAuthenticated)
                             {

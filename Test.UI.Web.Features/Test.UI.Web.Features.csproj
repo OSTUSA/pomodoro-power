@@ -73,9 +73,15 @@
   <ItemGroup>
     <Compile Include="Contexts\UserContext.cs" />
     <Compile Include="Contexts\WebContext.cs" />
+    <Compile Include="Login.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Login.feature</DependentUpon>
+    </Compile>
     <Compile Include="Pages\IFormPage.cs" />
     <Compile Include="Pages\IPage.cs" />
     <Compile Include="Pages\PageBase.cs" />
+    <Compile Include="Pages\User\Login.cs" />
     <Compile Include="Pages\User\Register.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration.feature.cs">
@@ -87,6 +93,10 @@
   <ItemGroup>
     <None Include="..\Test.Integration\App.config">
       <Link>App.config</Link>
+    </None>
+    <None Include="Login.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Login.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="Registration.feature">
