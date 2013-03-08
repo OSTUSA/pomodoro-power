@@ -32,6 +32,13 @@ namespace Test.Unit.Infrastructure.IoC.NHibernate
         }
 
         [Test]
+        public void Add_does_thread_safe_add_to_dictionary()
+        {
+            Module.Add("OTHER", () => new Mock<ISessionFactory>().Object);
+            Assert.True(Module.Factories.ContainsKey("OTHER"));
+        }
+
+        [Test]
         public void OnLoad_should_perform_binding_to_ISession()
         {
             var std = new StandardKernel();

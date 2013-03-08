@@ -35,6 +35,11 @@ namespace Infrastructure.IoC.NHibernate
             
         }
 
+        public void Add(string key, Func<ISessionFactory> factory)
+        {
+            Factories[key] = Builder.GetFactory(key, factory);
+        }
+
         public override void Load()
         {
             Bind<ISession>().ToMethod(GetSession).InRequestScope();
