@@ -15,3 +15,8 @@ Scenario: Viewing the logout link
 Scenario: Logout link disabled when not logged in
 	Given I am on page "User.Login"
 	Then element "a[href='/user/logout']" should not exist
+
+Scenario: Logging out to destroy the cookie
+	Given I am logged in
+	When I visit "/user/logout"
+	Then there should be no cookie named ".ASPXAUTH"

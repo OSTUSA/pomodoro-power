@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
+using System.Web;
+using System.Web.Security;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -37,6 +40,7 @@ namespace Test.UI.Web.Features.Contexts
         }
 
         [Given(@"I am on page ""(.*)""")]
+        [When(@"I am on page ""(.*)""")]
         public void GivenIAmOnPage(string relativeType)
         {
             var typeName = String.Format("Test.UI.Web.Features.Pages.{0}", relativeType);
@@ -99,6 +103,22 @@ namespace Test.UI.Web.Features.Contexts
         {
             var cookie = Driver.Manage().Cookies.GetCookieNamed(cookieName);
             Assert.IsNull(cookie);
+        }
+
+        [Given(@"I am logged in")]
+        public void GivenIAmLoggedIn()
+        {
+            var ticket = new FormsAuthenticationTicket(1, "testuser@email.com", DateTime.Now, DateTime.Now.AddDays(4), false, string.Empty);
+            string encrypted = FormsAuthentication.Encrypt(ticket);
+            var cookie = new Cookie(FormsAuthentication.FormsCookieName, encrypted);
+            Driver.Manage().Cookies.AddCookie(cookie);
+        }
+
+        [Given(@"I visit ""(.*)""")]
+        [When(@"I visit ""(.*)""")]
+        public void WhenIVisit(string path)
+        {
+            Driver.Navigate().GoToUrl(BaseUrl + path);
         }
 
     }
