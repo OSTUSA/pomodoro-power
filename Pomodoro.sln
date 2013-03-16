@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{727841E0-A565-4040-8EFA-796ACD25A9D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "src\Core\Core.csproj", "{727841E0-A565-4040-8EFA-796ACD25A9D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Unit", "Test.Unit\Test.Unit.csproj", "{4616F8B0-1450-4C6B-B3A6-7A899B16818B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Unit", "src\Test.Unit\Test.Unit.csproj", "{4616F8B0-1450-4C6B-B3A6-7A899B16818B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5E3A6048-CF8A-483B-ADC7-2520AA0787F0}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,21 +12,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5E3A60
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.ListRepositories", "Infrastructure.ListRepositories\Infrastructure.ListRepositories.csproj", "{7E17D97C-C3FF-41D3-8271-B3173BCC9813}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.ListRepositories", "src\Infrastructure.ListRepositories\Infrastructure.ListRepositories.csproj", "{7E17D97C-C3FF-41D3-8271-B3173BCC9813}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation.Web", "Presentation.Web\Presentation.Web.csproj", "{9E8194B8-DD6B-49C8-8742-63065C58621F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation.Web", "src\Presentation.Web\Presentation.Web.csproj", "{9E8194B8-DD6B-49C8-8742-63065C58621F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.NHibernate", "Infrastructure.NHibernate\Infrastructure.NHibernate.csproj", "{00EBC56F-9CF9-4E66-8B9C-69274C75EAF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.NHibernate", "src\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj", "{00EBC56F-9CF9-4E66-8B9C-69274C75EAF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration", "Test.Integration\Test.Integration.csproj", "{49935250-AB58-4F58-98C9-D87A476D23B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration", "src\Test.Integration\Test.Integration.csproj", "{49935250-AB58-4F58-98C9-D87A476D23B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.IoC", "Infrastructure.IoC\Infrastructure.IoC.csproj", "{FD2016FF-4272-484A-9BFD-53E23DC6D5E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.IoC", "src\Infrastructure.IoC\Infrastructure.IoC.csproj", "{FD2016FF-4272-484A-9BFD-53E23DC6D5E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.UI.Web.Features", "Test.UI.Web.Features\Test.UI.Web.Features.csproj", "{900C29BA-FFA4-404B-A4EE-3B3B633BE221}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.UI.Web.Features", "src\Test.UI.Web.Features\Test.UI.Web.Features.csproj", "{900C29BA-FFA4-404B-A4EE-3B3B633BE221}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DAA34A4A-DEC0-476B-80A8-1790BAE01F77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3CE1F535-4C9F-4264-BAB0-46356463DF93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Migrations", "src\Infrastructure.Migrations\Infrastructure.Migrations.csproj", "{CADAFB1A-2987-4B7B-8777-7FDC56273B57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +68,10 @@ Global
 		{900C29BA-FFA4-404B-A4EE-3B3B633BE221}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{900C29BA-FFA4-404B-A4EE-3B3B633BE221}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{900C29BA-FFA4-404B-A4EE-3B3B633BE221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CADAFB1A-2987-4B7B-8777-7FDC56273B57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CADAFB1A-2987-4B7B-8777-7FDC56273B57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CADAFB1A-2987-4B7B-8777-7FDC56273B57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CADAFB1A-2987-4B7B-8777-7FDC56273B57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{FD2016FF-4272-484A-9BFD-53E23DC6D5E5} = {DAA34A4A-DEC0-476B-80A8-1790BAE01F77}
 		{7E17D97C-C3FF-41D3-8271-B3173BCC9813} = {DAA34A4A-DEC0-476B-80A8-1790BAE01F77}
 		{00EBC56F-9CF9-4E66-8B9C-69274C75EAF2} = {DAA34A4A-DEC0-476B-80A8-1790BAE01F77}
+		{CADAFB1A-2987-4B7B-8777-7FDC56273B57} = {DAA34A4A-DEC0-476B-80A8-1790BAE01F77}
 		{4616F8B0-1450-4C6B-B3A6-7A899B16818B} = {3CE1F535-4C9F-4264-BAB0-46356463DF93}
 		{49935250-AB58-4F58-98C9-D87A476D23B4} = {3CE1F535-4C9F-4264-BAB0-46356463DF93}
 		{900C29BA-FFA4-404B-A4EE-3B3B633BE221} = {3CE1F535-4C9F-4264-BAB0-46356463DF93}
