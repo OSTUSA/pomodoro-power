@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Infrastructure.IoC.NHibernate;
@@ -9,6 +9,8 @@ using NUnit.Framework;
 using Ninject;
 using System.Linq;
 using Ninject.Activation;
+using Ninject.Parameters;
+using Ninject.Planning.Bindings;
 using Ninject.Planning.Targets;
 
 namespace Test.Unit.Infrastructure.IoC.NHibernate
@@ -70,8 +72,35 @@ namespace Test.Unit.Infrastructure.IoC.NHibernate
             ClearDefaultFactory();
             var context = GetMockContext<ClassWithAttribute>();
             var module = new NHibernateModule();
-            var result = InvokeGetSession(module, context);
+            var result = InvokeGetSession(module, "Default");
             Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void Test_Kernel_can_resolve_factory_for_class_with_attribute()
+        {
+            var module = GetLoadedModule();
+            var ctx = GetMockContext<ClassWithAttribute>();
+            var req = new Request(ctx.Object, typeof(ISession), ctx.Object.Request.Target, null);
+            Assert.True(module.Kernel.CanResolve(req));
+        }
+
+        [Test]
+        public void Test_Kernel_can_resolve_factory_for_class_with_no_attribute()
+        {
+            var module = GetLoadedModule();
+            var ctx = GetMockContext<ClassWithNoAttribute>();
+            var req = new Request(ctx.Object, typeof(ISession), ctx.Object.Request.Target, null);
+            Assert.True(module.Kernel.CanResolve(req));
+        }
+
+        [Test]
+        public void Test_Kernel_cant_resolve_for_invalid_factory()
+        {
+            var module = GetLoadedModule();
+            var ctx = GetMockContext<ClassWithInvalidAttribute>();
+            var req = new Request(ctx.Object, typeof(ISession), ctx.Object.Request.Target, null);
+            Assert.False(module.Kernel.CanResolve(req));
         }
 
         [Test]
@@ -83,21 +112,12 @@ namespace Test.Unit.Infrastructure.IoC.NHibernate
             //test the inner exception, not the one from reflection
             try
             {
-                InvokeGetSession(module, context);
+                InvokeGetSession(module, "IDontHaveASessionFactoryAtAll");
             }
             catch (TargetInvocationException e)
             {
                 throw e.InnerException;
             }
-        }
-
-        [Test]
-        public void Test_no_attribute_should_use_default_factory()
-        {
-            var context = GetMockContext<ClassWithNoAttribute>();
-            var module = new NHibernateModule();
-            var result = InvokeGetSession(module, context);
-            Assert.IsNotNull(result);
         }
 
         protected Mock<IContext> GetMockContext<T>()
@@ -112,14 +132,17 @@ namespace Test.Unit.Infrastructure.IoC.NHibernate
             info.SetupGet(i => i.ReflectedType).Returns(typeof(T));
             target.SetupGet(t => t.Member).Returns(info.Object);
             request.SetupGet(r => r.Target).Returns(target.Object);
+            request.SetupGet(r => r.ActiveBindings).Returns(new Stack<IBinding>());
+            request.SetupGet(r => r.Service).Returns(typeof (ISession));
             context.SetupGet(c => c.Request).Returns(request.Object);
+            context.SetupGet(c => c.Parameters).Returns(new List<IParameter>());
             return context;
         }
 
-        protected static ISession InvokeGetSession(NHibernateModule module, Mock<IContext> context)
+        protected static ISession InvokeGetSession(NHibernateModule module, string factoryName)
         {
             MethodInfo method = typeof(NHibernateModule).GetMethod("GetSession", BindingFlags.NonPublic | BindingFlags.Instance);
-            var result = method.Invoke(module, new object[] { context.Object }) as ISession;
+            var result = method.Invoke(module, new object[] { factoryName }) as ISession;
             return result;
         }
 
@@ -132,6 +155,15 @@ namespace Test.Unit.Infrastructure.IoC.NHibernate
                 typeof(SessionFactoryBuilder).GetField("_factorySingleton", BindingFlags.NonPublic | BindingFlags.Instance)
                                               .GetValue(builder) as SingletonInstanceScoper<ISessionFactory>;
             scoper.ClearInstance("Default");
+        }
+
+        protected NHibernateModule GetLoadedModule()
+        {
+            ClearDefaultFactory();
+            var module = new NHibernateModule();
+            var kernel = new StandardKernel();
+            module.OnLoad(kernel);
+            return module;
         }
     }
 }

@@ -42,7 +42,14 @@ namespace Infrastructure.IoC.NHibernate
 
         public override void Load()
         {
-            Bind<ISession>().ToMethod(GetSession).InRequestScope();
+            foreach (var factory in Factories)
+            {
+                var kvp = factory;
+                Bind<ISession>()
+                    .ToMethod(ctx => this.GetSession(kvp.Key))
+                    .When(req => IsFactory(req, kvp.Key))
+                    .InRequestScope();
+            }
             Bind<IUserRepository>().To<UserRepository>();
         }
 
@@ -55,17 +62,21 @@ namespace Infrastructure.IoC.NHibernate
                     .CurrentSessionContext<WebSessionContext>().BuildSessionFactory();
         }
 
-        protected ISession GetSession(IContext context)
+        protected ISession GetSession(string factory)
         {
-            Type requestType = context.Request.Target.Member.ReflectedType;
-            var attrs = requestType.GetCustomAttributes(true);
-            var factoryAttr = attrs.FirstOrDefault(a => a.GetType() == typeof(SessionFactory)) as SessionFactory ?? null;
-            var factory = (factoryAttr == null) ? "Default" : factoryAttr.SessionFactoryName;
-
             if(!Factories.ContainsKey(factory))
                 throw new InvalidFactoryException(string.Format("Invalid factory \"{0}\" provided", factory));
 
             return Factories[factory].OpenSession();
+        }
+
+        private static bool IsFactory(IRequest request, string factoryName)
+        {
+            Type requestType = request.Target.Member.ReflectedType;
+            var attrs = requestType.GetCustomAttributes(true);
+            var factoryAttr = attrs.FirstOrDefault(a => a.GetType() == typeof (SessionFactory)) as SessionFactory ?? null;
+            var factory = (factoryAttr == null) ? "Default" : factoryAttr.SessionFactoryName;
+            return factory == factoryName;
         }
     }
 }
