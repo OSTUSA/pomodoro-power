@@ -79,8 +79,8 @@ this.ScenarioSetup(scenarioInfo);
                         "Name",
                         "Password"});
             table1.AddRow(new string[] {
-                        "milesscaturro@gmail.com",
-                        "Miles Scaturro",
+                        "test2@test.com",
+                        "Test User2",
                         "password"});
 #line 7
  testRunner.When("I submit the form using", ((string)(null)), table1, "When ");
@@ -185,23 +185,12 @@ this.ScenarioSetup(scenarioInfo);
                         "Name",
                         "Password"});
             table5.AddRow(new string[] {
-                        "jenniescaturro@gmail.com",
-                        "Jennie Scaturro",
+                        "test1@test.com",
+                        "Test User1",
                         "password"});
 #line 36
- testRunner.And("I create a user with the following", ((string)(null)), table5, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Email",
-                        "Name",
-                        "Password"});
-            table6.AddRow(new string[] {
-                        "jenniescaturro@gmail.com",
-                        "Jennie Scaturro",
-                        "password"});
+ testRunner.When("I submit the form using", ((string)(null)), table5, "When ");
 #line 39
- testRunner.When("I submit the form using", ((string)(null)), table6, "When ");
-#line 42
  testRunner.Then("element \"span[data-valmsg-for=\'Email\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

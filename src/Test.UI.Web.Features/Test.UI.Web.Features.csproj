@@ -71,7 +71,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexts\UserContext.cs" />
     <Compile Include="Contexts\WebContext.cs" />
     <Compile Include="Login.feature.cs">
       <AutoGen>True</AutoGen>

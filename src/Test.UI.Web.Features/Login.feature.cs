@@ -76,26 +76,15 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Email",
-                        "Name",
                         "Password"});
             table1.AddRow(new string[] {
-                        "scaturrob@gmail.com",
-                        "Brian Scaturro",
+                        "test1@test.com",
                         "password"});
 #line 7
- testRunner.And("I create a user with the following", ((string)(null)), table1, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Email",
-                        "Password"});
-            table2.AddRow(new string[] {
-                        "scaturrob@gmail.com",
-                        "password"});
+ testRunner.When("I submit the form using", ((string)(null)), table1, "When ");
 #line 10
- testRunner.When("I submit the form using", ((string)(null)), table2, "When ");
-#line 13
  testRunner.Then("A cookie named \".ASPXAUTH\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 14
+#line 11
  testRunner.And("I should be redirected to \"/\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -106,20 +95,20 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void LoggingInAndOmittingTheEmailAddress()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging in and omitting the email address", ((string[])(null)));
-#line 16
+#line 13
 this.ScenarioSetup(scenarioInfo);
-#line 17
+#line 14
  testRunner.Given("I am on page \"User.Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Email",
                         "Password"});
-            table3.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "",
                         "password"});
+#line 15
+ testRunner.When("I submit the form using", ((string)(null)), table2, "When ");
 #line 18
- testRunner.When("I submit the form using", ((string)(null)), table3, "When ");
-#line 21
  testRunner.Then("element \"span[data-valmsg-for=\'Email\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -130,20 +119,20 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void LoggingInAndOmittingThePassword()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging in and omitting the password", ((string[])(null)));
-#line 23
+#line 20
 this.ScenarioSetup(scenarioInfo);
-#line 24
+#line 21
  testRunner.Given("I am on page \"User.Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Email",
                         "Password"});
-            table4.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "scaturrob@gmail.com",
                         ""});
+#line 22
+ testRunner.When("I submit the form using", ((string)(null)), table3, "When ");
 #line 25
- testRunner.When("I submit the form using", ((string)(null)), table4, "When ");
-#line 28
  testRunner.Then("element \"span[data-valmsg-for=\'Password\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -154,20 +143,20 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void LoggingInWithAnInvalidEmail()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging in with an invalid email", ((string[])(null)));
-#line 30
+#line 27
 this.ScenarioSetup(scenarioInfo);
-#line 31
+#line 28
  testRunner.Given("I am on page \"User.Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Email",
                         "Password"});
-            table5.AddRow(new string[] {
+            table4.AddRow(new string[] {
                         "test@gmail.com",
                         "password"});
+#line 29
+ testRunner.When("I submit the form using", ((string)(null)), table4, "When ");
 #line 32
- testRunner.When("I submit the form using", ((string)(null)), table5, "When ");
-#line 35
  testRunner.Then("element \"span[data-valmsg-for=\'Email\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -178,31 +167,20 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void LoggingInWithAnInvalidPassword()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging in with an invalid password", ((string[])(null)));
-#line 37
+#line 34
 this.ScenarioSetup(scenarioInfo);
-#line 38
+#line 35
  testRunner.Given("I am on page \"User.Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Email",
-                        "Name",
-                        "Password"});
-            table6.AddRow(new string[] {
-                        "bscaturro@gmail.com",
-                        "Brian Scaturro",
-                        "password"});
-#line 39
- testRunner.And("I create a user with the following", ((string)(null)), table6, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Email",
                         "Password"});
-            table7.AddRow(new string[] {
-                        "bscaturro@gmail.com",
+            table5.AddRow(new string[] {
+                        "test1@test.com",
                         "badpassword"});
-#line 42
- testRunner.When("I submit the form using", ((string)(null)), table7, "When ");
-#line 45
+#line 36
+ testRunner.When("I submit the form using", ((string)(null)), table5, "When ");
+#line 39
  testRunner.Then("element \"span[data-valmsg-for=\'Email\']\" should have text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

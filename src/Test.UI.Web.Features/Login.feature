@@ -4,12 +4,9 @@
 
 Scenario: Logging in with a valid user
 	Given I am on page "User.Login"
-	And I create a user with the following
-	| Email               | Name           | Password |
-	| scaturrob@gmail.com | Brian Scaturro | password |
 	When I submit the form using
-	| Email               | Password |
-	| scaturrob@gmail.com | password |
+	| Email          | Password |
+	| test1@test.com | password |
 	Then A cookie named ".ASPXAUTH" should exist
 	And I should be redirected to "/"
 
@@ -36,10 +33,7 @@ Scenario: Logging in with an invalid email
 
 Scenario: Logging in with an invalid password
 	Given I am on page "User.Login"
-	And I create a user with the following
-	| Email               | Name           | Password |
-	| bscaturro@gmail.com | Brian Scaturro | password |
 	When I submit the form using
-	| Email               | Password    |
-	| bscaturro@gmail.com | badpassword |
+	| Email          | Password    |
+	| test1@test.com | badpassword |
 	Then element "span[data-valmsg-for='Email']" should have text

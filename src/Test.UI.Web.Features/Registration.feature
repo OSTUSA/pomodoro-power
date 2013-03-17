@@ -5,8 +5,8 @@
 Scenario: Registering an unused email address
 	Given I am on page "User.Register"
 	When I submit the form using
-	| Email                   | Name           | Password |
-	| milesscaturro@gmail.com | Miles Scaturro | password |
+	| Email          | Name       | Password |
+	| test2@test.com | Test User2 | password |
 	Then A cookie named ".ASPXAUTH" should exist
 	And I should be redirected to "/"
 
@@ -33,10 +33,7 @@ Scenario: Registering and omitting the password
 
 Scenario: Registering an in use email
 	Given I am on page "User.Register"
-	And I create a user with the following
-	| Email                    | Name            | Password |
-	| jenniescaturro@gmail.com | Jennie Scaturro | password |
 	When I submit the form using
-	| Email                    | Name            | Password |
-	| jenniescaturro@gmail.com | Jennie Scaturro | password |
+	| Email          | Name       | Password |
+	| test1@test.com | Test User1 | password |
 	Then element "span[data-valmsg-for='Email']" should have text

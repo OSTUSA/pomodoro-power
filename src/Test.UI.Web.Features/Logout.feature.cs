@@ -76,24 +76,13 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Email",
-                        "Name",
                         "Password"});
             table1.AddRow(new string[] {
-                        "bryce@gmail.com",
-                        "Bryce Darling",
+                        "test1@test.com",
                         "password"});
 #line 7
- testRunner.And("I create a user with the following", ((string)(null)), table1, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Email",
-                        "Password"});
-            table2.AddRow(new string[] {
-                        "bryce@gmail.com",
-                        "password"});
+ testRunner.When("I submit the form using", ((string)(null)), table1, "When ");
 #line 10
- testRunner.When("I submit the form using", ((string)(null)), table2, "When ");
-#line 13
  testRunner.Then("element \"a[href=\'/user/logout\']\" should be visible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -104,11 +93,11 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void LogoutLinkDisabledWhenNotLoggedIn()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logout link disabled when not logged in", ((string[])(null)));
-#line 15
+#line 12
 this.ScenarioSetup(scenarioInfo);
-#line 16
+#line 13
  testRunner.Given("I am on page \"User.Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 17
+#line 14
  testRunner.Then("element \"a[href=\'/user/logout\']\" should not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -119,13 +108,13 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void LoggingOutToDestroyTheCookie()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Logging out to destroy the cookie", ((string[])(null)));
-#line 19
+#line 16
 this.ScenarioSetup(scenarioInfo);
-#line 20
+#line 17
  testRunner.Given("I am logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 21
+#line 18
  testRunner.When("I visit \"/user/logout\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 22
+#line 19
  testRunner.Then("there should be no cookie named \".ASPXAUTH\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

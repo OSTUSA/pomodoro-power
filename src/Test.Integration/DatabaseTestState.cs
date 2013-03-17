@@ -13,6 +13,7 @@ namespace Test.Integration
     public class DatabaseTestState
     {
         protected string ConnectionString;
+        protected string MigrationProfile;
         protected readonly SessionFactoryBuilder Builder = new SessionFactoryBuilder();
 
         public DatabaseTestState(string connString)
@@ -20,8 +21,9 @@ namespace Test.Integration
             ConnectionString = connString;
         }
 
-        public ISessionFactory Configure<TMapping>()
+        public ISessionFactory Configure<TMapping>(string profile = "")
         {
+            MigrationProfile = profile;
             return Builder.GetFactory(ConnectionString, () => Fluently.Configure()
                                                                .Database(
                                                                    MsSqlConfiguration.MsSql2008.ConnectionString(
@@ -39,7 +41,7 @@ namespace Test.Integration
             //wipe the database
             Runner.MigrateDown(0);
             //migrate to latest version
-            Runner.MigrateUp();
+            Runner.MigrateUp(Runner.VersionLatest, MigrationProfile);
         }
     }
 }

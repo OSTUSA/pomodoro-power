@@ -3,10 +3,13 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Security;
+using Infrastructure.NHibernate.Mapping.Users;
+using NHibernate;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using TechTalk.SpecFlow;
+using Test.Integration;
 using Test.UI.Web.Features.Pages;
 
 namespace Test.UI.Web.Features.Contexts
@@ -22,6 +25,13 @@ namespace Test.UI.Web.Features.Contexts
         protected IWebDriver Driver;
         protected string BaseUrl;
         protected dynamic Page;
+        protected static ISessionFactory SessionFactory;
+
+        [BeforeFeature()]
+        public static void InitFeature()
+        {
+            SessionFactory = new DatabaseTestState("TestConnection").Configure<UserMap>("Development");
+        }
 
         [BeforeScenario()]
         public void InitScenario()
@@ -108,7 +118,7 @@ namespace Test.UI.Web.Features.Contexts
         [Given(@"I am logged in")]
         public void GivenIAmLoggedIn()
         {
-            var ticket = new FormsAuthenticationTicket(1, "testuser@email.com", DateTime.Now, DateTime.Now.AddDays(4), false, string.Empty);
+            var ticket = new FormsAuthenticationTicket(1, "testuser@email.com", DateTime.Now, DateTime.Now.AddDays(4), false, String.Empty);
             string encrypted = FormsAuthentication.Encrypt(ticket);
             var cookie = new Cookie(FormsAuthentication.FormsCookieName, encrypted);
             Driver.Manage().Cookies.AddCookie(cookie);
@@ -120,6 +130,5 @@ namespace Test.UI.Web.Features.Contexts
         {
             Driver.Navigate().GoToUrl(BaseUrl + path);
         }
-
     }
 }

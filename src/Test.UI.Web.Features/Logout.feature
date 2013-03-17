@@ -4,12 +4,9 @@
 
 Scenario: Viewing the logout link
 	Given I am on page "User.Login"
-	And I create a user with the following
-	| Email               | Name           | Password |
-	| bryce@gmail.com     | Bryce Darling  | password |
 	When I submit the form using
-	| Email               | Password |
-	| bryce@gmail.com     | password |
+	| Email          | Password |
+	| test1@test.com | password |
 	Then element "a[href='/user/logout']" should be visible
 
 Scenario: Logout link disabled when not logged in
