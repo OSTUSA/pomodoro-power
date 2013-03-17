@@ -7,7 +7,7 @@ namespace Infrastructure.Migrations.Migrations
     {
         public override void Up()
         {
-            Create.Table("[User]")
+            Create.Table("User")
                   .WithColumn("Id").AsInt64().NotNullable().PrimaryKey().Identity()
                   .WithColumn("Email").AsString(255).NotNullable().Unique()
                   .WithColumn("Name").AsString(255).NotNullable()
@@ -16,7 +16,7 @@ namespace Infrastructure.Migrations.Migrations
 
         public override void Down()
         {
-            Delete.Table("Users");
+            Delete.Table("User");
         }
     }
 }

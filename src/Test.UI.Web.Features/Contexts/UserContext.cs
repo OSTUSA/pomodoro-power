@@ -26,7 +26,7 @@ namespace Test.UI.Web.Features.Contexts
         [BeforeFeature()]
         public static void InitFeature()
         {
-            SessionFactory = new DatabaseTestState("TestConnection", "pom-schema.sql").Configure<UserMap>();
+            SessionFactory = new DatabaseTestState("TestConnection").Configure<UserMap>();
         }
 
         [Given(@"I create a user with the following")]

@@ -1,23 +1,23 @@
-﻿using FluentNHibernate.Cfg;
+﻿using System.Configuration;
+using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using Infrastructure.Migrations.Runner;
 using Infrastructure.NHibernate;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Context;
-using NHibernate.Tool.hbm2ddl;
+using Configuration = NHibernate.Cfg.Configuration;
 
 namespace Test.Integration
 {
     public class DatabaseTestState
     {
         protected string ConnectionString;
-        protected string OutputFile;
         protected readonly SessionFactoryBuilder Builder = new SessionFactoryBuilder();
 
-        public DatabaseTestState(string connString, string output)
+        public DatabaseTestState(string connString)
         {
             ConnectionString = connString;
-            OutputFile = output;
         }
 
         public ISessionFactory Configure<TMapping>()
@@ -35,9 +35,11 @@ namespace Test.Integration
 
         protected void CreateSchema(Configuration config)
         {
-            var schemaExport = new SchemaExport(config);
-            schemaExport.Drop(false, true);
-            schemaExport.SetOutputFile(OutputFile).Create(false, true);
+            Runner.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionString].ToString();
+            //wipe the database
+            Runner.MigrateDown(0);
+            //migrate to latest version
+            Runner.MigrateUp();
         }
     }
 }
