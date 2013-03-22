@@ -24,18 +24,21 @@ namespace Test.Integration
         public ISessionFactory Configure<TMapping>(string profile = "")
         {
             MigrationProfile = profile;
-            return Builder.GetFactory(ConnectionString, () => Fluently.Configure()
-                                                               .Database(
-                                                                   MsSqlConfiguration.MsSql2008.ConnectionString(
-                                                                       c => c.FromConnectionStringWithKey(ConnectionString)))
-                                                               .Mappings(cfg => cfg.FluentMappings.AddFromAssemblyOf<TMapping>())
-                                                               .ExposeConfiguration(CreateSchema)
-                                                               .BuildConfiguration()
-                                                               .CurrentSessionContext<ThreadStaticSessionContext>().BuildSessionFactory());
+            var factory = Builder.GetFactory(ConnectionString, GetSessionFactory<TMapping>);
+            CreateSchema();
+            return factory;
         }
 
+        protected ISessionFactory GetSessionFactory<TMapping>()
+        {
+            return Fluently.Configure()
+                    .Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey(ConnectionString)))
+                    .Mappings(cfg => cfg.FluentMappings.AddFromAssemblyOf<TMapping>())
+                    .BuildConfiguration()
+                    .CurrentSessionContext<ThreadStaticSessionContext>().BuildSessionFactory();
+        }
 
-        protected void CreateSchema(Configuration config)
+        protected void CreateSchema()
         {
             Runner.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionString].ToString();
             //wipe the database
