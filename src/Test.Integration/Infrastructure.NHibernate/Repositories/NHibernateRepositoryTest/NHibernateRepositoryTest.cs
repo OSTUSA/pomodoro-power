@@ -1,33 +1,11 @@
-﻿using Core.Domain.Model;
-using Core.Domain.Model.Users;
-using Infrastructure.NHibernate.Mapping.Users;
-using Infrastructure.NHibernate.Repositories;
-using NHibernate;
+﻿using Core.Domain.Model.Users;
 using NUnit.Framework;
 
 namespace Test.Integration.Infrastructure.NHibernate.Repositories.NHibernateRepositoryTest
 {
     [TestFixture]
-    public class NHibernateRepositoryTest : RepositoryTestBase
+    public class NHibernateRepositoryTest : RepositoryTestBase<User>
     {
-        protected IRepository<User> Repo;
-
-        protected ISession Session;
-
-        [SetUp]
-        public void Init()
-        {
-            Session = TestState.Configure<UserMap>().OpenSession();
-            Session.FlushMode = FlushMode.Commit;
-            Repo = new NHibernateRepository<User>(Session);
-        }
-
-        [TearDown]
-        public void Cleanup()
-        {
-            Session.Dispose();
-        }
-
         [Test]
         public void Store_should_persist_new_User()
         {
