@@ -21,6 +21,11 @@ namespace Infrastructure.NHibernate.Repositories
             return Session.Get<T>(id);
         }
 
+        public virtual T Load(object id)
+        {
+            return Session.Load<T>(id);
+        }
+
         public virtual List<T> GetAll()
         {
             return Session.Query<T>().ToList();

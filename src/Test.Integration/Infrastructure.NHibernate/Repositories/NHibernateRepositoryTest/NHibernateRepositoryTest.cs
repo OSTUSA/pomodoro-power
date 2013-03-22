@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Domain.Model.Users;
+using NHibernate.Proxy;
 using NUnit.Framework;
 
 namespace Test.Integration.Infrastructure.NHibernate.Repositories.NHibernateRepositoryTest
@@ -89,6 +90,16 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.NHibernateRepo
             Assert.AreEqual(2, all.Count);
             Assert.AreEqual("brian", all[0].Name);
             Assert.AreEqual("jennie", all[1].Name);
+        }
+
+        [Test]
+        public void Load_should_return_a_proxy()
+        {
+            var user = Mother.GetUser();
+            Repo.Store(user);
+            Session.Clear();
+            var loaded = Repo.Load(user.Id);
+            Assert.IsInstanceOf<INHibernateProxy>(loaded);
         }
 
         [Test]

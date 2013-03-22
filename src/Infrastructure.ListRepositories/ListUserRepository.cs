@@ -28,6 +28,11 @@ namespace Infrastructure.ListRepositories
             return Users.SingleOrDefault(x => x.Id == (long) id);
         }
 
+        public User Load(object id)
+        {
+            return Get(id);
+        }
+
         public List<User> GetAll()
         {
             return Users;

@@ -7,6 +7,8 @@ namespace Core.Domain.Model
     {
         T Get(object id);
 
+        T Load(object id);
+
         List<T> GetAll();
 
         List<T> FindBy(Func<T, bool> predicate);
