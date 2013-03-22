@@ -104,16 +104,5 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.NHibernateRepo
             var all = Repo.GetAll();
             Assert.AreEqual(1, all.Count);
         }
-
-        public override void AfterTest()
-        {
-            var list = new List<string>() {"b@s.com", "j@s.com", "s@b.com"};
-            foreach (var email in list)
-            {
-                var fetched = Repo.FindOneBy(u => u.Email == email);
-                if (fetched != null)
-                    Repo.Delete(fetched);
-            }
-        }
     }
 }
