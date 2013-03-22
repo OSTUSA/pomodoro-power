@@ -39,7 +39,7 @@ namespace Test.Integration
         {
             Runner.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionString].ToString();
             //wipe the database
-            Runner.MigrateDown(0);
+            Runner.RollbackToVersion(0);
             //migrate to latest version
             Runner.MigrateUp(Runner.VersionLatest, MigrationProfile);
         }

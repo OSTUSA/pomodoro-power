@@ -35,6 +35,11 @@ namespace Infrastructure.Migrations.Runner
             GetMigrationRunner(version).MigrateDown(version);
         }
 
+        public static void RollbackToVersion(long version)
+        {
+            GetMigrationRunner(-1).RollbackToVersion(version);
+        }
+
         private static MigrationRunner GetMigrationRunner(long version, string profile = "")
         {
             if(string.IsNullOrEmpty(ConnectionString))

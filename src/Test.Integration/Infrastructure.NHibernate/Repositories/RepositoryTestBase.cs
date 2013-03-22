@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace Test.Integration.Infrastructure.NHibernate.Repositories
 {
-    public class RepositoryTestBase<T> where T : IEntity<T>
+    abstract public class RepositoryTestBase<T> where T : IEntity<T>
     {
         protected IRepository<T> Repo;
 
@@ -31,7 +31,13 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories
         [TearDown]
         public void Cleanup()
         {
+            AfterTest();
             Session.Dispose();
+        }
+
+        public virtual void AfterTest()
+        {
+            
         }
     }
 }
