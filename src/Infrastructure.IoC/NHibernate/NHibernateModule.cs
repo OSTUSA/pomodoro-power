@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Domain.Model;
 using Core.Domain.Model.Users;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -50,7 +51,7 @@ namespace Infrastructure.IoC.NHibernate
                     .When(req => IsFactory(req, kvp.Key))
                     .InRequestScope();
             }
-            Bind<IUserRepository>().To<UserRepository>();
+            Bind(typeof(IRepository<>)).To(typeof(NHibernateRepository<>));
         }
 
         protected static ISessionFactory ConfigureDefaultFactory()

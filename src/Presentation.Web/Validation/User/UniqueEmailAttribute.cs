@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Core.Domain.Model.Users;
+using Core.Domain.Model;
+using CoreUsers = Core.Domain.Model.Users;
 using Ninject;
 
 namespace Presentation.Web.Validation.User
@@ -7,7 +8,7 @@ namespace Presentation.Web.Validation.User
     public class UniqueEmailAttribute : UserValidationAttributeBase
     {
         [Inject]
-        public override IUserRepository Repo { get; set; }
+        public override IRepository<CoreUsers.User> Repo { get; set; }
 
         public UniqueEmailAttribute(string message = "") : base(message)
         {
@@ -29,7 +30,7 @@ namespace Presentation.Web.Validation.User
         {
             if (string.IsNullOrEmpty(email)) return null;
 
-            var user = Repo.GetByEmail(email);
+            var user = Repo.FindOneBy(u => u.Email == email);
             if (user != null)
                 return new ValidationResult(Message);
 

@@ -64,8 +64,8 @@
   <ItemGroup>
     <Compile Include="DatabaseTestState.cs" />
     <Compile Include="Infrastructure.NHibernate\Repositories\RepositoryTestBase.cs" />
-    <Compile Include="Infrastructure.NHibernate\Repositories\UserRepositoryTest\Mother.cs" />
-    <Compile Include="Infrastructure.NHibernate\Repositories\UserRepositoryTest\UserRepositoryTest.cs" />
+    <Compile Include="Infrastructure.NHibernate\Repositories\NHibernateRepositoryTest\Mother.cs" />
+    <Compile Include="Infrastructure.NHibernate\Repositories\NHibernateRepositoryTest\NHibernateRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

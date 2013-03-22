@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Core.Domain.Model.Users;
-using Ninject;
+using Core.Domain.Model;
+using CoreUsers = Core.Domain.Model.Users;
 
 namespace Presentation.Web.Validation.User
 {
@@ -12,7 +12,7 @@ namespace Presentation.Web.Validation.User
         /// act screwy if you have an [Ineject] attribute
         /// on the base class
         /// </summary>
-        abstract public IUserRepository Repo { get; set; }
+        abstract public IRepository<CoreUsers.User> Repo { get; set; }
 
         protected string Message { get; set; }
 

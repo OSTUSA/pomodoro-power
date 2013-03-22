@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using Core.Domain.Model;
 using Users = Core.Domain.Model.Users;
 using Moq;
 using NUnit.Framework;
@@ -12,12 +14,12 @@ namespace Test.Unit.Presentation.Web.Validation.User
     {
         protected UniqueEmailAttribute Attr { get; set; }
 
-        protected Mock<Users.IUserRepository> Repo { get; set; }
+        protected Mock<IRepository<Users.User>> Repo { get; set; }
 
         [SetUp]
         public void SetUp()
         {
-            Repo = new Mock<Users.IUserRepository>();
+            Repo = new Mock<IRepository<Users.User>>();
             Attr = new UniqueEmailAttribute { Repo = Repo.Object };
         }
 
@@ -81,12 +83,12 @@ namespace Test.Unit.Presentation.Web.Validation.User
 
         protected void UserIsFound()
         {
-            Repo.Setup(u => u.GetByEmail(It.IsAny<string>())).Returns(new Users.User());
+            Repo.Setup(u => u.FindOneBy(It.IsAny<Func<Users.User, bool>>())).Returns(new Users.User());
         }
 
         protected void UserIsNotFound()
         {
-            Repo.Setup(u => u.GetByEmail(It.IsAny<string>())).Returns<Users.User>(null);
+            Repo.Setup(u => u.FindOneBy(It.IsAny<Func<Users.User, bool>>())).Returns<Users.User>(null);
         }
 
         protected ValidationResult InvokeIsValid(string value)

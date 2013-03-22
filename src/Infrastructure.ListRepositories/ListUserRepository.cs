@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Domain.Model;
-using Core.Domain.Model.Users;
 using User = Infrastructure.ListRepositories.Proxy.Users.User;
 
 namespace Infrastructure.ListRepositories
@@ -9,7 +9,7 @@ namespace Infrastructure.ListRepositories
     /// <summary>
     /// A UserRepository backed by a List of type User
     /// </summary>
-    public class ListUserRepository : IUserRepository
+    public class ListUserRepository : IRepository<User>
     {
         protected static List<User> Users { get; set; }
 
@@ -23,21 +23,36 @@ namespace Infrastructure.ListRepositories
             _id = 0;
         }
 
-        public Core.Domain.Model.Users.User Get(long id)
+        public User Get(object id)
         {
-            return Users.SingleOrDefault(x => x.Id == id);
+            return Users.SingleOrDefault(x => x.Id == (long) id);
         }
 
-        public Core.Domain.Model.Users.User GetByEmail(string email)
+        public List<User> GetAll()
         {
-            return Users.SingleOrDefault(x => x.Email == email);
+            return Users;
         }
 
-        public void Store(Core.Domain.Model.Users.User user)
+        public List<User> FindBy(Func<User, bool> predicate)
+        {
+            return Users.Where(predicate).ToList();
+        }
+
+        public User FindOneBy(Func<User, bool> pred)
+        {
+            return Users.SingleOrDefault(pred);
+        }
+
+        public void Store(User user)
         {
             var fetched = Get(user.Id);
             if (fetched == null)
                 Insert(user);
+        }
+
+        public void Delete(User entity)
+        {
+            Users.RemoveAll(e => e.Id == entity.Id);
         }
 
         public void Clear()

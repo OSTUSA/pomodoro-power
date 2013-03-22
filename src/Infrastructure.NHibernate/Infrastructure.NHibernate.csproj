@@ -50,9 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\NHibernateRepository.cs" />
     <Compile Include="SessionFactoryAttribute.cs" />
     <Compile Include="Mapping\Users\UserMap.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="SessionFactoryBuilder.cs" />
     <Compile Include="SingletonInstanceScoper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

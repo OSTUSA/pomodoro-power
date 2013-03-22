@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Core.Domain.Model;
 using Core.Domain.Model.Users;
 using Presentation.Web.Models.Input;
 using Presentation.Web.Services;
@@ -7,10 +8,10 @@ namespace Presentation.Web.Controllers
 {
     public class UserController : Controller
     {
-        protected IUserRepository Users;
+        protected IRepository<User> Users;
         protected IAuthenticationService Auth;
 
-        public UserController(IUserRepository users, IAuthenticationService auth)
+        public UserController(IRepository<User> users, IAuthenticationService auth)
         {
             Users = users;
             Auth = auth;
@@ -50,7 +51,7 @@ namespace Presentation.Web.Controllers
         {
             if (!ModelState.IsValid) return View(input);
 
-            var user = Users.GetByEmail(input.Email);
+            var user = Users.FindOneBy(u => u.Email == input.Email);
 
             Auth.Authenticate(user, HttpContext.Response);
             return RedirectToAction("Index", "Home");

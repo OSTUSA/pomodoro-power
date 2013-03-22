@@ -37,14 +37,14 @@ namespace Test.Unit.Infrastructure.ListRepositories
         [Test]
         public void Get_should_return_element_containing_id()
         {
-            var user = Repo.Get(1);
+            var user = Repo.Get((long) 1);
             Assert.AreSame(Users[0], user);
         }
 
         [Test]
         public void Get_should_return_null_if_id_not_present()
         {
-            var user = Repo.Get(4);
+            var user = Repo.Get((long)4);
             Assert.IsNull(user);
         }
 
@@ -54,16 +54,16 @@ namespace Test.Unit.Infrastructure.ListRepositories
             var user = new User() {Email = "myemail@email.com", Name = "Sam User", Password = "mypassword"};
             user.SetId(4);
             Repo.Store(user);
-            Assert.AreSame(user, Repo.Get(4));
+            Assert.AreSame(user, Repo.Get((long)4));
         }
 
         [Test]
         public void Store_should_not_add_existing_user()
         {
-            var user = Repo.Get(1);
+            var user = Repo.Get((long)1);
             user.Name = "An Updated Name";
             Repo.Store(user);
-            Assert.AreEqual("An Updated Name", Repo.Get(1).Name);
+            Assert.AreEqual("An Updated Name", Repo.Get((long)1).Name);
         }
 
         [Test]
@@ -71,21 +71,21 @@ namespace Test.Unit.Infrastructure.ListRepositories
         {
             var user = new User() {Email = "sam@email.com", Name = "Sam Guy", Password = "mypass"};
             Repo.Store(user);
-            var fetched = Repo.Get(4);
+            var fetched = Repo.Get((long)4);
             Assert.AreEqual("sam@email.com", fetched.Email);
         }
 
         [Test]
         public void GetByEmail_should_return_a_single_user_by_email()
         {
-            var user = Repo.GetByEmail("bscaturro@gmail.com");
+            var user = Repo.FindOneBy(u => u.Email == "bscaturro@gmail.com");
             Assert.AreSame(Users[1], user);
         }
 
         [Test]
         public void GetByEmail_should_return_null_if_email_does_not_exist()
         {
-            var user = Repo.GetByEmail("supergnarly@gmail.com");
+            var user = Repo.FindOneBy(u => u.Email == "supergnarly@gmail.com");
             Assert.IsNull(user);
         }
     }

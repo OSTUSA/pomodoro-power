@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Domain\Model\EntityBase.cs" />
     <Compile Include="Domain\Model\IEntity.cs" />
-    <Compile Include="Domain\Model\Users\IUserRepository.cs" />
+    <Compile Include="Domain\Model\IRepository.cs" />
     <Compile Include="Domain\Model\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

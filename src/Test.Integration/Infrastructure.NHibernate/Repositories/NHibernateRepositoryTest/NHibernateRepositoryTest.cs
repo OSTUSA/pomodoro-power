@@ -1,15 +1,16 @@
-﻿using Core.Domain.Model.Users;
+﻿using Core.Domain.Model;
+using Core.Domain.Model.Users;
 using Infrastructure.NHibernate.Mapping.Users;
 using Infrastructure.NHibernate.Repositories;
 using NHibernate;
 using NUnit.Framework;
 
-namespace Test.Integration.Infrastructure.NHibernate.Repositories.UserRepositoryTest
+namespace Test.Integration.Infrastructure.NHibernate.Repositories.NHibernateRepositoryTest
 {
     [TestFixture]
-    public class UserRepositoryTest : RepositoryTestBase
+    public class NHibernateRepositoryTest : RepositoryTestBase
     {
-        protected IUserRepository Repo;
+        protected IRepository<User> Repo;
 
         protected ISession Session;
 
@@ -18,7 +19,7 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.UserRepository
         {
             Session = TestState.Configure<UserMap>().OpenSession();
             Session.FlushMode = FlushMode.Commit;
-            Repo = new UserRepository(Session);
+            Repo = new NHibernateRepository<User>(Session);
         }
 
         [TearDown]
@@ -32,7 +33,7 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.UserRepository
         {
             var user = Mother.GetUser();
             Repo.Store(user);
-            var fetched = Repo.GetByEmail("b@s.com");
+            var fetched = Repo.FindOneBy(u => u.Email == "b@s.com");
             Assert.True(fetched.Id > 0);
             Assert.AreEqual("b@s.com", fetched.Email);
             Assert.AreEqual("brian", fetched.Name);
@@ -44,7 +45,7 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.UserRepository
         {
             var user = Mother.GetUser("s@b.com");
             Repo.Store(user);
-            var fetched = Repo.Get(1);
+            var fetched = Repo.Get((long)1);
             Assert.IsInstanceOf<User>(fetched);
         }
     }

@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Core.Domain.Model;
 using Core.Domain.Model.Users;
 using Moq;
 using NUnit.Framework;
@@ -16,14 +17,14 @@ namespace Test.Unit.Presentation.Web.Controllers
     {
         protected UserController Controller;
         protected Mock<IAuthenticationService> Auth;
-        protected Mock<IUserRepository> Repo;
+        protected Mock<IRepository<User>> Repo;
         protected Mock<HttpContextBase> Context;
         protected Mock<HttpResponseBase> Response;
 
         [SetUp]
         public void Init()
         {
-            Repo = new Mock<IUserRepository>();
+            Repo = new Mock<IRepository<User>>();
             Auth = new Mock<IAuthenticationService>();
             Controller = new UserController(Repo.Object, Auth.Object);
             Context = new Mock<HttpContextBase>(MockBehavior.Strict);
@@ -108,7 +109,7 @@ namespace Test.Unit.Presentation.Web.Controllers
 
         private Tuple<User, ActionResult> DoLogin(LoginInput input, User returnUser)
         {
-            Repo.Setup(r => r.GetByEmail(input.Email)).Returns(returnUser);
+            Repo.Setup(r => r.FindOneBy(It.IsAny<Func<User, bool>>())).Returns(returnUser);
             return new Tuple<User, ActionResult>(returnUser, Controller.LogIn(input));
         }
     }
