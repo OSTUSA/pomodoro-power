@@ -6,7 +6,6 @@ using Infrastructure.NHibernate;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Context;
-using Configuration = NHibernate.Cfg.Configuration;
 
 namespace Test.Integration
 {
@@ -40,11 +39,10 @@ namespace Test.Integration
 
         protected void CreateSchema()
         {
-            Runner.ConnectionString = ConfigurationManager.ConnectionStrings[ConnectionString].ToString();
-            //wipe the database
-            Runner.RollbackToVersion(0);
-            //migrate to latest version
-            Runner.MigrateUp(Runner.VersionLatest, MigrationProfile);
+            var connString = ConfigurationManager.ConnectionStrings[ConnectionString].ToString();
+            var runner = new Runner(connString);
+            runner.RollbackToVersion(0);
+            runner.MigrateUp(Runner.VersionLatest, MigrationProfile);
         }
     }
 }

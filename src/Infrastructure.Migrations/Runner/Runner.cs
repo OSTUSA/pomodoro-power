@@ -1,46 +1,38 @@
 ﻿using System.Reflection;
-using FluentMigrator;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Announcers;
 using FluentMigrator.Runner.Initialization;
 
 namespace Infrastructure.Migrations.Runner
 {
-    public static class Runner
+    public class Runner
     {
-        public static IAnnouncer Announcer { get; set; }
-
-        public static string ConnectionString { get; set; }
-
+        public IAnnouncer Announcer { get; set; }
+        public string ConnectionString { get; set; }
         public const long VersionLatest = -1;
 
-        static Runner()
+        public Runner(string connString, IAnnouncer announcer = null)
         {
-            Announcer = new NullAnnouncer();
+            ConnectionString = connString;
+            Announcer = announcer ?? new NullAnnouncer();
         }
 
-        public class MigrationOptions : IMigrationProcessorOptions
-        {
-            public bool PreviewOnly { get; set; }
-            public int Timeout { get; set; }
-        }
-
-        public static void MigrateUp(long version = -1, string profile = "")
+        public void MigrateUp(long version = -1, string profile = "")
         {
             GetMigrationRunner(version, profile).MigrateUp(true);
         }
 
-        public static void MigrateDown(long version)
+        public void MigrateDown(long version)
         {
             GetMigrationRunner(version).MigrateDown(version);
         }
 
-        public static void RollbackToVersion(long version)
+        public void RollbackToVersion(long version)
         {
             GetMigrationRunner(-1).RollbackToVersion(version);
         }
 
-        private static MigrationRunner GetMigrationRunner(long version, string profile = "")
+        private MigrationRunner GetMigrationRunner(long version, string profile = "")
         {
             if(string.IsNullOrEmpty(ConnectionString))
                 throw new EmptyConnectionStringException("ConnectionString property not initialized");
@@ -52,12 +44,9 @@ namespace Infrastructure.Migrations.Runner
             return runner;
         }
 
-        private static RunnerContext GetMigrationContext(long version, string profile)
+        private RunnerContext GetMigrationContext(long version, string profile)
         {
-            var context = new RunnerContext(Announcer) 
-            {
-                Namespace = "Infrastructure.Migrations.Migrations",
-            };
+            var context = new RunnerContext(Announcer);
             if (version > -1)
                 context.Version = version;
             if (!string.IsNullOrEmpty(profile))
