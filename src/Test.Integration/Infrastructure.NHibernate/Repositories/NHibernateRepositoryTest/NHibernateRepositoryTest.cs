@@ -11,7 +11,7 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.NHibernateRepo
         [Test]
         public void Store_should_persist_new_User()
         {
-            var user = Mother.GetUser();
+            var user = Mother.SimpleUser;
             Repo.Store(user);
             var fetched = Repo.FindOneBy(u => u.Email == "b@s.com");
             Assert.True(fetched.Id > 0);
@@ -23,7 +23,7 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.NHibernateRepo
         [Test]
         public void Store_should_update_existing_User()
         {
-            var user = Mother.GetUser();
+            var user = Mother.SimpleUser;
             Repo.Store(user);
             Session.Clear();
             var fetched = Repo.Get(user.Id);
@@ -37,10 +37,8 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.NHibernateRepo
         [Test]
         public void FindBy_should_return_list_of_matching_criteria()
         {
-            var user = Mother.GetUser();
-            var user2 = Mother.GetUser("s@b.com", "scaturro");
-            Repo.Store(user);
-            Repo.Store(user2);
+            Repo.Store(Mother.SimpleUser);
+            Repo.Store(Mother.AnotherSimpleUser);
             Session.Clear();
             var found = Repo.FindBy(x => x.Name == "brian");
             Assert.AreEqual(1, found.Count);
@@ -50,7 +48,7 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.NHibernateRepo
         [Test]
         public void Get_should_return_user_by_id()
         {
-            var user = Mother.GetUser("s@b.com");
+            var user = Mother.SimpleUser;
             Repo.Store(user);
             Session.Clear();
             var fetched = Repo.Get(user.Id);
@@ -81,34 +79,29 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.NHibernateRepo
         [Test]
         public void GetAll_should_return_list_of_all_records()
         {
-            var user = Mother.GetUser();
-            var user2 = Mother.GetUser("j@s.com", "jennie");
-            Repo.Store(user);
-            Repo.Store(user2);
+            Repo.Store(Mother.SimpleUser);
+            Repo.Store(Mother.AnotherSimpleUser);
             Session.Clear();
             var all = Repo.GetAll();
             Assert.AreEqual(2, all.Count);
             Assert.AreEqual("brian", all[0].Name);
-            Assert.AreEqual("jennie", all[1].Name);
+            Assert.AreEqual("scaturro", all[1].Name);
         }
 
         [Test]
         public void Load_should_return_a_proxy()
         {
-            var user = Mother.GetUser();
-            Repo.Store(user);
+            Repo.Store(Mother.SimpleUser);
             Session.Clear();
-            var loaded = Repo.Load(user.Id);
+            var loaded = Repo.Load(Mother.SimpleUser.Id);
             Assert.IsInstanceOf<INHibernateProxy>(loaded);
         }
 
         [Test]
         public void Delete()
         {
-            var user = Mother.GetUser();
-            var user2 = Mother.GetUser("j@s.com");
-            Repo.Store(user);
-            Repo.Store(user2);
+            Repo.Store(Mother.SimpleUser);
+            Repo.Store(Mother.AnotherSimpleUser);
             Session.Clear();
             var brian = Repo.Get((long)1);
             Repo.Delete(brian);

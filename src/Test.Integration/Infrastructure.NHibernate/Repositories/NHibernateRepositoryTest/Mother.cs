@@ -4,16 +4,34 @@ namespace Test.Integration.Infrastructure.NHibernate.Repositories.NHibernateRepo
 {
     public static class Mother
     {
-        public static User GetUser(string email = "b@s.com", string name = "brian", string pass = "pass")
-        {
-            var user = new User()
+        public static User SimpleUser 
+        { 
+            get
+            {
+                var user = new User()
                 {
-                    Email = email,
-                    Name = name,
-                    Password = pass
+                    Email = "b@s.com",
+                    Name = "brian",
+                    Password = "pass"
                 };
-            user.HashPassword();
-            return user;
+                user.HashPassword();
+                return user;
+            }  
+        }
+
+        public static User AnotherSimpleUser
+        {
+            get
+            {
+                var user = new User()
+                {
+                    Email = "s@b.com",
+                    Name = "scaturro",
+                    Password = "pass"
+                };
+                user.HashPassword();
+                return user;
+            }
         }
     }
 }
