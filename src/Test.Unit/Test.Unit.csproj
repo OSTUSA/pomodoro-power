@@ -66,12 +66,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Domain\Model\EntityBaseTest\EntityBaseTest.cs" />
+    <Compile Include="Core\Domain\Model\EntityBaseTest\TestEntity.cs" />
     <Compile Include="Core\Domain\Model\Users\UserTest.cs" />
     <Compile Include="Infrastructure.IoC\NHibernate\ClassWithAttribute.cs" />
     <Compile Include="Infrastructure.IoC\NHibernate\ClassWithInvalidAttribute.cs" />
     <Compile Include="Infrastructure.IoC\NHibernate\ClassWithNoAttribute.cs" />
     <Compile Include="Infrastructure.IoC\NHibernate\NHibernateModuleTest.cs" />
-    <Compile Include="Infrastructure.ListRepositories\ListUserRepositoryTest.cs" />
     <Compile Include="Infrastructure.NHibernate\SessionFactoryAttributeTest.cs" />
     <Compile Include="Infrastructure.NHibernate\SessionFactoryBuilderTest.cs" />
     <Compile Include="Infrastructure.NHibernate\SingletonInstanceScoperTest.cs" />
@@ -96,10 +97,6 @@
     <ProjectReference Include="..\Infrastructure.IoC\Infrastructure.IoC.csproj">
       <Project>{FD2016FF-4272-484A-9BFD-53E23DC6D5E5}</Project>
       <Name>Infrastructure.IoC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.ListRepositories\Infrastructure.ListRepositories.csproj">
-      <Project>{7e17d97c-c3ff-41d3-8271-b3173bcc9813}</Project>
-      <Name>Infrastructure.ListRepositories</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure.NHibernate\Infrastructure.NHibernate.csproj">
       <Project>{00EBC56F-9CF9-4E66-8B9C-69274C75EAF2}</Project>
