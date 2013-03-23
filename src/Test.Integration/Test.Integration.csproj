@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentMigrator.Runner, Version=1.0.6.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=x86">
+    <Reference Include="FluentMigrator.Runner, Version=1.0.6.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\FluentMigrator\FluentMigrator.Runner.dll</HintPath>
     </Reference>
